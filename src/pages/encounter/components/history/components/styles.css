@@ -1,0 +1,235 @@
+﻿.historyDataTable table.dataTable thead .sorting:before,
+.historyDataTable table.dataTable thead .sorting:after,
+.historyDataTable table.dataTable thead .sorting_asc:before,
+.historyDataTable table.dataTable thead .sorting_asc:after,
+.historyDataTable table.dataTable thead .sorting_desc:before,
+.historyDataTable table.dataTable thead .sorting_desc:after,
+.historyDataTable table.dataTable thead .sorting_asc_disabled:before,
+.historyDataTable table.dataTable thead .sorting_asc_disabled:after,
+.historyDataTable table.dataTable thead .sorting_desc_disabled:before,
+.historyDataTable table.dataTable thead .sorting_desc_disabled:after {
+    /* Previous Styles */
+    /* bottom: 10px; */
+    /* Updated Styles */
+    display: none;
+    /* top: 15px;
+    left:5px; */
+
+
+
+}
+
+.historyDataTable table.dataTable thead>tr>th.sorting:last-child:before,
+.historyDataTable table.dataTable thead>tr>th.sorting:last-child:after,
+.historyDataTable table.dataTable thead>tr>th.sorting_asc:last-child:before,
+.historyDataTable table.dataTable thead>tr>th.sorting_asc:last-child:after,
+.historyDataTable table.dataTable thead>tr>th.sorting_desc:last-child:before,
+.historyDataTable table.dataTable thead>tr>th.sorting_desc:last-child:after,
+.historyDataTable table.dataTable thead>tr>th.sorting_asc_disabled:last-child:before,
+.historyDataTable table.dataTable thead>tr>th.sorting_asc_disabled:last-child:after,
+.historyDataTable table.dataTable thead>tr>th.sorting_desc_disabled:last-child:before,
+.historyDataTable table.dataTable thead>tr>th.sorting_desc_disabled:last-child:after {
+    display: none;
+}
+
+/* [data-test="datatable-search"], */
+[data-test="table-foot"],
+[data-test="historyDataTable-entries"],
+.historyDataTable .dataTable thead>tr>th:nth-child(1),
+.historyDataTable .dataTable tbody>tr>td:nth-child(1) {
+    display: none !important;
+}
+
+[data-test="historyDataTable-search"] input {
+    border: 1px solid #E1E1E1;
+    height: 39px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 0 10px;
+    min-width: 240px;
+    color: #25282B;
+    padding-left: 40px;
+    margin-bottom: 10px;
+}
+
+[data-test="historyDataTable-search"] input:focus {
+    outline: 0;
+}
+
+[data-test="historyDataTable-input"] {
+    position: relative;
+}
+
+[data-test="historyDataTable-input"]::before {
+    position: absolute;
+    display: block;
+    left: 12px;
+    top: 9px;
+    z-index: 100;
+    font-family: "Font Awesome\ 5 Free", sans-serif;
+
+    font-size: 1rem;
+    font-weight: 900;
+    content: "\f002";
+}
+
+[data-test="historyDataTable-table"] {
+    border: 1px solid #E1E1E1;
+    border-radius: 10px;
+    overflow: auto;
+}
+
+.historyDataTable .dataTable {
+    border-collapse: collapse;
+    background-color: white;
+    max-height: 430px;
+    width: 100%;
+}
+
+.historyDataTable .dataTable thead {
+    background: #E8E8E8;
+}
+
+.historyDataTable .dataTable thead>tr>th {
+    /* Previous Styles */
+    /*font-family: Lato;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 23px;
+            letter-spacing: 0.01em;
+            color: #25282B;
+            background: #fafafa;
+            pointer-events: none !important;*/
+    /*text-align: left;
+            padding-left: 20px;
+            padding-left: 15px;*/
+
+    /* Updated Styles */
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 14px;
+    letter-spacing: 0.01em;
+    color: #25282B;
+    background: #EFEFEF;
+    /* background: #fafafa; */
+    /* pointer-events: none !important;  */
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    height: 46px;
+}
+
+.historyDataTable .dataTable thead>tr>th:last-child {
+    pointer-events: none !important;
+}
+
+.historyDataTable .dataTable tbody>tr:hover {
+    background-color: #e9f1fc;
+    cursor: pointer;
+}
+
+.historyDataTable .dataTable tbody>tr>td {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.01em;
+    border-top: 1px solid #E1E1E1;
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    min-height: 40px;
+}
+
+.historyDataTable .dataTable tbody>tr>td button {
+    padding: 4px 10px;
+}
+
+.historyDataTable .dataTable tbody>tr>td .MuiInputBase-root {
+    margin-bottom: 0;
+}
+
+.historyDataTable .dataTable tbody>tr>td img.eImg {
+    margin-top: 9px;
+}
+
+[data-test="historyDataTable-info"] {
+    width: 41%;
+    max-width: 41%;
+    float: left;
+}
+
+.dataTables_info {
+    color: #25282B;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 28px;
+    padding-left: 5px;
+}
+
+[data-test="historyDataTable-pagination"] {
+    display: none;
+    width: 56%;
+    max-width: 50%;
+    float: right;
+}
+
+.dataTables_paginate {
+    /* display: none; */
+    text-align: right;
+    margin: 0;
+}
+
+.pagination {
+    display: none;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+.pagination .disabled {
+    pointer-events: none !important;
+    color: #11284b !important;
+}
+
+.pagination .page-item .page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: 1px;
+    margin-right: 1px;
+    line-height: 1.25;
+    border: 0;
+    color: #909090;
+}
+
+.pagination .page-item:hover .page-link {
+    border-radius: 50%;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #11284b !important;
+    border-radius: 50%;
+}
+
+.pagination [aria-label="Next"],
+.pagination [aria-label="Previous"] {
+    color: #11284b !important;
+    border-radius: 5px !important;
+}

@@ -1,0 +1,87 @@
+﻿import { makeStyles } from "@material-ui/styles";
+
+export default makeStyles((theme) => ({
+  box: {
+    background: "#F1F1F1",
+    border: "1px solid #E1E1E1",
+    borderRadius: "10px",
+    padding: "11px",
+    paddingBottom: "8px",
+    textAlign: "center",
+    boxShadow: "none",
+    margin: "12px 0 0 0",
+  },
+  name: {
+    color: "#000000",
+    fontSize: "16px",
+    lineHeight: "20px",
+    fontWeight: "500 !important",
+    width: "100%",
+    textAlign: "center",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+  },
+  noReportFound: {
+    textAlign: "center",
+    width: "100%",
+    fontSize: "19px",
+    color: "#b6b6b6",
+    padding: "13px",
+    borderTop: "1px solid #ede5e5",
+    marginTop: "20px",
+  },
+
+  days: {
+    marginTop: "5px",
+    fontSize: "12px",
+    fontFamily: "Lato",
+    fontStyle: "normal",
+    fontWeight: "500",
+    letterSpacing: "0.4px",
+    lineHeight: "20px",
+  },
+  payment: {
+    padding: "0px 8px",
+    margin: "0px 0 2px 0",
+    color: "#00B4E5",
+    fontSize: "14px",
+    marginTop: "3px !important",
+    fontFamily: "Lato",
+    "& span": {
+      color: "#5D8AB5",
+    },
+  },
+  colorLight: {
+    color: "#555555",
+  },
+  smallContainerBox: {
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  iconCircleBox: {
+    display: "flex",
+    overflow: "hidden",
+    position: "relative",
+    alignItems: "center",
+    flexShrink: "0",
+    lineHeight: "1",
+    userSelect: "none",
+    borderRadius: "50%",
+    justifyContent: "center",
+    width: "84px",
+    height: "84px",
+  },
+  iconTitle: {
+    display: "flex",
+    color: "#565656",
+    fontSize: "20px",
+    margin: "10px 0 10px 0",
+  },
+  smallIconTitle: {
+    paddingLeft: 20,
+    alignItems: "center",
+  },
+}));

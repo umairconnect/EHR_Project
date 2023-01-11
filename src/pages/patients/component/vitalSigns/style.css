@@ -1,0 +1,297 @@
+﻿.vitalsignsdt table.dataTable thead .sorting:before,
+.vitalsignsdt table.dataTable thead .sorting_asc:before,
+.vitalsignsdt table.dataTable thead .sorting_desc:before,
+.vitalsignsdt table.dataTable thead .sorting_asc_disabled:before,
+.vitalsignsdt table.dataTable thead .sorting_desc_disabled:before,
+.vitalsignsdt table.dataTable thead .sorting:after,
+.vitalsignsdt table.dataTable thead .sorting_asc:after,
+.vitalsignsdt table.dataTable thead .sorting_desc:after,
+.vitalsignsdt table.dataTable thead .sorting_asc_disabled:after,
+.vitalsignsdt table.dataTable thead .sorting_desc_disabled:after .vitalsignsdt table.dataTable thead .sorting:before,
+.vitalsignsdt table.dataTable thead .sorting:after,
+.vitalsignsdt table.dataTable thead .sorting_asc:before,
+.vitalsignsdt table.dataTable thead .sorting_asc:after,
+.vitalsignsdt table.dataTable thead .sorting_desc:before,
+.vitalsignsdt table.dataTable thead .sorting_desc:after,
+.vitalsignsdt table.dataTable thead .sorting_asc_disabled:before,
+.vitalsignsdt table.dataTable thead .sorting_asc_disabled:after,
+.vitalsignsdt table.dataTable thead .sorting_desc_disabled:before,
+.vitalsignsdt table.dataTable thead .sorting_desc_disabled:after {
+    /*bottom: 10px;
+    left:5px;*/
+    display: "none";
+}
+
+.vitalsignsdt table.dataTable thead .sorting:empty:before,
+table.dataTable thead .sorting:empty:after,
+table.dataTable thead .sorting_asc:empty:before,
+table.dataTable thead .sorting_asc:empty:after,
+table.dataTable thead .sorting_desc:empty:before,
+table.dataTable thead .sorting_desc:empty:after,
+table.dataTable thead .sorting_asc_disabled:empty:before,
+table.dataTable thead .sorting_asc_disabled:empty:after,
+table.dataTable thead .sorting_desc_disabled:empty:before,
+table.dataTable thead .sorting_desc_disabled:empty:after {
+    display: none;
+
+}
+
+.vitalsignsdt table.dataTable thead .sorting:empty,
+table.dataTable thead .sorting:empty,
+table.dataTable thead .sorting_asc:empty,
+table.dataTable thead .sorting_asc:empty,
+table.dataTable thead .sorting_desc:empty,
+table.dataTable thead .sorting_desc:empty,
+table.dataTable thead .sorting_asc_disabled:empty,
+table.dataTable thead .sorting_asc_disabled:empty,
+table.dataTable thead .sorting_desc_disabled:empty,
+table.dataTable thead .sorting_desc_disabled:empty {
+    cursor: default;
+    pointer-events: none !important;
+}
+
+/* [data-test="datatable-search"], */
+[data-test="table-foot"],
+[data-test="datatable-entries"],
+.vitalsignsdt .dataTable thead>tr>th:nth-child(1),
+.vitalsignsdt .dataTable tbody>tr>td:nth-child(1) {
+    display: none !important;
+}
+
+
+[data-test="datatable-search"] input {
+    border: 1px solid #E1E1E1;
+    height: 39px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 0 10px;
+    min-width: 240px;
+    color: #25282B;
+    padding-left: 40px;
+    margin-bottom: 10px;
+}
+
+[data-test="datatable-search"] input:focus {
+    outline: 0;
+}
+
+[data-test="datatable-input"] {
+    position: relative;
+}
+
+[data-test="datatable-input"]::before {
+    position: absolute;
+    display: block;
+    left: 12px;
+    top: 9px;
+    z-index: 100;
+    font-family: "Font Awesome\ 5 Free", sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    content: "\f002";
+}
+
+[data-test="datatable-table"] {
+    border: 1px solid #E1E1E1;
+    border-radius: 10px;
+    overflow: auto;
+}
+
+.vitalsignsdt .dataTable {
+    border-collapse: collapse;
+    background-color: white;
+    max-height: 430px;
+    width: 100%;
+    border: 1px solid #E1E1E1;
+}
+
+.vitalsignsdt .dataTable thead {
+    background: #E8E8E8;
+}
+
+.vitalsignsdt .dataTable thead>tr>th.sorting,
+.vitalsignsdt .dataTable thead>tr>th {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 23px;
+    letter-spacing: 0.01em;
+    color: #25282B;
+    background: #fafafa;
+    /*pointer-events: none !important;*/
+
+    text-align: left;
+    padding-left: 20px;
+}
+
+.vitalsignsdt .dataTable tbody>tr:hover {
+    background-color: #e9f1fc;
+    cursor: pointer;
+}
+
+.vitalsignsdt .dataTable tbody>tr>td {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 28px;
+    letter-spacing: 0.01em;
+    border-top: 0.01em solid #E1E1E1;
+    border-left: 0.01em solid #E1E1E1;
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    min-height: 40px;
+}
+
+[data-test="datatable-info"] {
+    width: 41%;
+    max-width: 41%;
+    float: left;
+}
+
+.vitalsignsdt .dataTables_info {
+    color: #25282B;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 28px;
+    padding-left: 5px;
+}
+
+[data-test="datatable-pagination"] {
+    width: 56%;
+    max-width: 50%;
+    float: right;
+}
+
+.vitalsignsdt .dataTables_paginate {
+    text-align: right;
+    margin: 0;
+}
+
+.pagination {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+.pagination .disabled {
+    pointer-events: none !important;
+    color: #11284b !important;
+}
+
+.pagination .page-item .page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: 1px;
+    margin-right: 1px;
+    line-height: 1.25;
+    border: 0;
+    color: #909090;
+}
+
+.pagination .page-item:hover .page-link {
+    border-radius: 50%;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #11284b !important;
+    border-radius: 50%;
+}
+
+.pagination [aria-label="Next"],
+.pagination [aria-label="Previous"] {
+    color: #11284b !important;
+    border-radius: 5px !important;
+}
+
+
+/* 
+.vitalClinicalDashbaord .dataTable tbody>tr>td { 
+    display: none;
+}
+
+.vitalClinicalDashbaord .dataTable tbody>tr>td:nth-child(2) { 
+    display: unset !important;
+}
+.vitalClinicalDashbaord .dataTable tbody>tr>td:nth-child(3) { 
+    display: unset !important;
+}
+.vitalClinicalDashbaord .dataTable tbody>tr>td:nth-child(4) { 
+    display: unset !important;
+}
+
+
+
+.vitalClinicalDashbaord .dataTable thead>tr>th {
+    display: none;
+}
+.vitalClinicalDashbaord .dataTable thead>tr>th:nth-child(2)  {
+    display: unset !important;
+}
+.vitalClinicalDashbaord .dataTable thead>tr>th:nth-child(3)  {
+    display: unset !important;
+}
+.vitalClinicalDashbaord .dataTable thead>tr>th:nth-child(4)  {
+    display: unset !important;
+} */
+
+
+
+
+
+
+.vitalClinicalDashbaord [data-test="datatable-table"] {
+  border: 0 !important;
+}
+
+
+.vitalClinicalDashbaord .dataTable tbody>tr>td {
+    border-top: 0 !important;
+    line-height: initial !important;
+    font-size: 0.875rem !important;
+    color: #4a4a50 !important;
+}
+.vitalClinicalDashbaord .dataTable{
+    background-color: transparent !important;
+}
+.vitalClinicalDashbaord .dataTable tr:hover {
+background-color: transparent !important;
+}
+.vitalClinicalDashbaord .dataTable tr {
+    cursor: unset !important;
+}
+
+.vitalClinicalDashbaord .dataTable thead {
+    font-size: 16px;
+    font-family: Lato;
+    font-weight: bold;
+    line-height: 16px;
+}
+.vitalClinicalDashbaord .dataTable thead .sorting:before {
+  font-family: initial !important;
+  display: none !important;
+}
+.vitalClinicalDashbaord .dataTable thead .sorting:after {
+    font-family: initial !important;
+    display: none !important;
+}
+.vitalClinicalDashbaord .dataTable thead>tr>th {
+  padding: 0 5px !important;
+}
+.vitalClinicalDashbaord .dataTable tbody>tr>td {
+    padding: 6px 5px !important
+}
