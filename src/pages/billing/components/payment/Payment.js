@@ -236,6 +236,11 @@ function Payment(props) {
     const reloadGrid = () => {
 
         setSearchParams(state);
+
+        if (state.paymentDateFrom > state.paymentDateTo) {
+            showMessage("Error", "Recieved From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         update();
     }
     const clearFilters = () => {

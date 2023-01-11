@@ -344,6 +344,10 @@ function DefaultFinancialReports({ showMessage, ...props }) {
     }
 
     function search(_tabValue) {
+        if (state.dateFrom > state.dateTo) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         const onlyPatIds = patientList.filter(d => d.isDeleted == false).map(d => d.patientId).join(",");
         const onlyPatNames = patientList.filter(d => d.isDeleted == false).map(d => d.patientName).join(",");
         const onlyLocIds = locationList.filter(d => d.isDeleted == false).map(d => d.locationId).join(",");
@@ -515,6 +519,7 @@ function DefaultFinancialReports({ showMessage, ...props }) {
                 Charges_By: searchParamValue.Charges_By
             }
         }
+
 
         PostDataAPI("reports/loadReportGrid", params).then((result) => {
             setIsLoading(false);

@@ -115,16 +115,19 @@ function UnderpaidItemReports({ showMessage, ...props }) {
     }
 
     function exportReport() {
-        
         const onlyCodes = payerList.filter(d => d.isDeleted == false).map(d => d.payerId).join(",");
         const onlyValues = payerList.filter(d => d.isDeleted == false).map(d => d.payerName).join(",");
-        setIsLoading(true);
+       
         var params = {
             reportName: "Underpaid Item Reports",
             Code: state.code == undefined ? "" : state.code,
             Date_From: state.fromDate == undefined ? "" : formatDate(state.fromDate),
             Date_To: state.ToDate == undefined ? "" : formatDate(state.ToDate),
             Ins_Code: payerList.filter(d => d.isDeleted == false).length == 0 ? "" : onlyCodes + "||" + onlyValues
+        }
+        if (state.fromDate > state.ToDate) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
         }
         setIsLoading(true);
         PostDataAPI("reports/getReports", params).then((result) => {
@@ -143,7 +146,7 @@ function UnderpaidItemReports({ showMessage, ...props }) {
     function loadReportUnderPaid() {
         const onlyCodes = payerList.filter(d => d.isDeleted == false).map(d => d.payerId).join(",");
         const onlyValues = payerList.filter(d => d.isDeleted == false).map(d => d.payerName).join(",");
-        setIsLoading(true);
+     
         var params = {
             reportName: "Underpaid Item Reports",
             Code: "",
@@ -151,6 +154,11 @@ function UnderpaidItemReports({ showMessage, ...props }) {
             Date_To: state.ToDate == undefined ? "" : state.ToDate,
             Ins_Code: payerList.filter(d => d.isDeleted == false).length == 0 ? "" : onlyCodes + "||" + onlyValues
         }
+        if (state.fromDate != '' && state.ToDate!='' && state.fromDate > state.ToDate) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
+        setIsLoading(true);
         PostDataAPI("reports/loadReportGrid", params).then((result) => {
             setIsLoading(false);
             if (result.success && result.data != null) {
@@ -191,7 +199,6 @@ function UnderpaidItemReports({ showMessage, ...props }) {
                 setState({ fromDate: '', ToDate: '' });
                 state.fromDate = '';
                 state.ToDate = '';
-
             }
         }
         loadReportUnderPaid();

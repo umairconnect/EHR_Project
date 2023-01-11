@@ -83,6 +83,8 @@ export default function PatientDetails(props) {
         })
     }
     useEffect(() => {
+        debugger;
+        console.log(props.isEditable)
         saveAuditLogInfo();
         if (isSidebarOpened) {
             toggleSidebar(layoutDispatch);
@@ -168,7 +170,7 @@ export default function PatientDetails(props) {
                         <LabOrders isImaginOrder={false} dataId={dataId} isEditable={props.isEditable} />
                     </TabPanel>
                     <TabPanel value={value} index={11}>
-                        <Immunization dataId={dataId} />
+                        <Immunization dataId={dataId} isEditable={props.isEditable} />
                     </TabPanel>
                     <TabPanel value={value} index={16}>
                         <LabOrders isImaginOrder={true} dataId={dataId} isEditable={props.isEditable} />

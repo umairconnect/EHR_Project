@@ -23,16 +23,9 @@ import SearchList from "../../components/SearchList/SearchList";
 
 // import { PostDataAPI } from '../../Services/PostDataAPI';
 // import { GetUserInfo } from '../../Services/GetUserInfo';
-
 // import { APICall } from '../../Services/APICall';
 
-
-
 //
-
-
-
-
 export default function SearchGridForm({ isDeleted, defaultvalues, searchPanelParams, onChange, Apply, onAddNew, ToggleButton, MenuBtnRef, ...props }) {
 
     const [searchdataoptions, setSearchDataOptions] = useState(["", ""]);
@@ -72,11 +65,70 @@ export default function SearchGridForm({ isDeleted, defaultvalues, searchPanelPa
 
     const handleInputChange = e => {
         const { name, value } = e.target;
-        setValues(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
+        if (name == 'cellnumber') {
+            handleCellPhoneChange(e);
+        } else {
+            setValues(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
+     
     }
+
+    const handleCellPhoneChange = e => {
+        debugger;
+        if (e.nativeEvent.data != "e") {
+            
+            if (e.nativeEvent.data != null || e.target.value != "") {
+                // for fomatting
+                const re = /^[0-9\b]+$/;
+                e.target.value = e.target.value.replace(' ', '').replace('(', '').replace(')', '').replace('-', '');
+                const { name, value } = e.target;
+                if ((e.target.value === '' || re.test(e.target.value))) {
+
+
+                    var cleaned = ('' + e.target.value).replace(/\D/g, '')
+                    var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
+                    if (match) {
+                        var intlCode = (match[1] ? '+1 ' : ''),
+                            number = [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('');
+
+                        setValues(prevState => ({
+                            ...prevState,
+                            [name]: number
+                        }));
+
+                        return;
+                    }
+
+                    setValues(prevState => ({
+                        ...prevState,
+                        [name]: value
+                    }));
+                }
+                else {
+                    if (e.target.value == '' || !re.test(e.target.value)) {
+                        e.preventDefault();
+                    }
+
+                }
+            }
+            else {
+
+                const { name, value } = e.target;
+                setValues(prevState => ({
+                    ...prevState,
+                    [name]: value
+                }));
+            }
+
+        }
+        else
+            e.preventDefault();
+
+    }
+
     const handleCheckedChange = e => {
         const { name, checked } = e.target;
         setValues(prevState => ({
@@ -381,6 +433,26 @@ export default function SearchGridForm({ isDeleted, defaultvalues, searchPanelPa
                                                     </>
                                                 )
                                             }
+                                            else if (option.type === 'cellPhone') {
+                                                return (
+                                                    <>
+                                                        <FormControl key={i} className={classes.margin}>
+                                                            <FormLabel className={classes.lableInput}>{option.label}</FormLabel>
+                                                            <InputBaseField
+                                                                MaxLength="14"
+                                                                placeholder={option.label}
+                                                                type="text"
+                                                                value={values[option.name]}
+                                                                id={option.name}
+                                                                name={option.name}
+                                                                variant="filled"
+                                                                size="small"
+                                                                onChange={handleInputChange}
+                                                            />
+                                                        </FormControl>
+                                                    </>
+                                                )
+                                            }
                                             else if (option.type === 'select') {
                                                 return (
                                                     <FormControl key={i} className={classes.margin}>
@@ -402,10 +474,10 @@ export default function SearchGridForm({ isDeleted, defaultvalues, searchPanelPa
                                                         <FormControlLabel
                                                             control={
                                                                 <Checkbox
-                                                                    checked={values[option.name]}
-                                                                    onChange={handleCheckedChange}
-                                                                    name={option.name}
-                                                                    color="primary"
+                                                                    checked = {values[option.name]}
+                                                                    onChange = {handleCheckedChange}
+                                                                    name = {option.name}
+                                                                    color = "primary"
                                                                 />
                                                             }
                                                             label={option.label}

@@ -474,6 +474,10 @@ function Clinical(props) {
         stateFilters.isPendingSuperBills = false;
         stateFilters.isViewUnsignedOnly = false;
 
+        if (stateFilters.fromDate > stateFilters.toDate) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         setUpdateState(!updateState);
     }
 

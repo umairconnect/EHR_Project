@@ -57,6 +57,8 @@ function HealthConcern({ patientId, ...props }) {
         setIsEdit(true)
     }
     useEffect(() => {
+        debugger;
+        console.log(props.isEditable)
         loadData();
     }, []);
     return (

@@ -34,7 +34,7 @@
 			label: "Cell #",
 			id: "sf_field_4",
 			name: "cellnumber",
-			type: "number",
+			type: "cellPhone",
 			limit: 128
 		},
 		{
@@ -74,7 +74,7 @@
 		{
 			label: "Cell #",
 			name: "cellnumber",
-			type: "number",
+			type: "cellPhone",
 			limit: 128
 		},
 		{
@@ -117,7 +117,7 @@
 			label: "Cell #",
 			id: "cell_number",
 			name: "cellnumber",
-			type: "number",
+			type: "cellPhone",
 			limit: 128
 		},
 		{
@@ -189,7 +189,7 @@
 			label: "Cell #",
 			id: "cell",
 			name: "cellnumber",
-			type: "number",
+			type: "cellPhone",
 			limit: 128
 		},
 		{

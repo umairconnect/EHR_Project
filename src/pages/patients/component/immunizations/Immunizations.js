@@ -97,6 +97,8 @@ function Immunizations(props) {
     }
     const handleFeatureAddedSoon = () => { showMessage("Information", "Feature will be added soon.", "info", 3000); }
     useEffect(() => {
+        debugger;
+        console.log(props)
         saveAuditLogInfo();
     }, []);
     return (
@@ -113,6 +115,7 @@ function Immunizations(props) {
                                 dialogOpenClose={dialogOpenClose}
                                 handleClose={handleCloseImmunizationForm}
                                 handleSuccess={handleDialogSuccess}
+                                isEditable={ isEditable}
                             />
                         ) : ('')
                     }

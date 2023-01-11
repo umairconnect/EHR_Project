@@ -88,6 +88,16 @@ export default makeStyles((theme) => ({
         paddingLeft: '20px',
         letterSpacing: '0.01em'
     },
+    cardHeadingRight: {
+        fontFamily: 'Lato',
+        fontStyle: 'normal',
+        fontWeight: 700,
+        fontSize: '14px',
+        lineHeight: '20px',
+        color: '#25282B',
+        paddingLeft: '0px',
+        letterSpacing: '0.01em'
+    },
     itemHeader: {
         height: '29px',
         display: 'flex',
@@ -168,7 +178,9 @@ export default makeStyles((theme) => ({
         lineHeight: '20px',
         color: '#25282B',
         paddingRight: '20px',
-        textAlign: "right",
+        textAlign: "left",
+        paddingLeft: '20px',
+
         // alignItems: "center",
     },
     addNew: {

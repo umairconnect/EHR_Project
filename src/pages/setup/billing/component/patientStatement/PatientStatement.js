@@ -50,12 +50,21 @@ function PatientStatement({ ...props }) {
     const [isUpdate, setIsUpdate] = useState(false);
     const [searchParams, setSearchParams] = useState(["", "true", "", "", "", "", "", "0", "", "", "-1"]);
 
-
+    Date.prototype.addDays = function (days) {
+        this.setDate(this.getDate() + parseInt(days));
+        return this;
+    };
     const [state, setState] = useState({
         patientStatementOption: "ActivePatients", patientId: 0, patientName: '', patientGroup: "", patientFlags: '', selectedFlags: '',
-        statementId: "", locationId: 0, locationName: '', providerId: "-1", providerName: '', lastPrintedStatement: "", DOSFrom: "", DOSTo: "",
+        statementId: "", locationId: 0, locationName: '', providerId: "-1", providerName: '', lastPrintedStatement: "", DOSFrom: addDays(new Date(), -31).toString(),
+        DOSTo: addDays(new Date(), 0).toString(),
         lastStatements: "", includePatientsWithZero: false, balanceFrom: '', balanceTo: ''
     });
+    function addDays(date, days) {
+
+        date.addDays(days);
+        return date.toISOString().split('T')[0];
+    }
 
     const [printState, setPrintState] = useState({
         statementDueDate: "", includeStatementsWithNotes: false, includeSummaryWithBalance: true, includeLineItemWithZeroBalance: true
@@ -180,12 +189,18 @@ function PatientStatement({ ...props }) {
         state.locationId.toString(), state.statementId, state.lastPrintedStatement,
             state.DOSFrom, state.DOSTo, state.includePatientsWithZero ? "1" : "0", state.balanceFrom, state.balanceTo, state.providerId, state.lastStatements
         ]);
+        if (state.DOSFrom > state.DOSTo) {
+            showMessage("Error", "DOS From date cannot be greater than to date", "error", 3000);
+            return;
+        }
+
         update();
     }
     const clearValues=()=>{
         setState({
                 patientStatementOption: "ActivePatients", patientId: 0, patientName: '', patientGroup: "", patientFlags: '', selectedFlags: '',
-                statementId: "", locationId: 0, locationName: '', providerId: 0, providerName: '', lastPrintedStatement: "", DOSFrom: "", DOSTo: "",
+            statementId: "", locationId: 0, locationName: '', providerId: 0, providerName: '', lastPrintedStatement: "", DOSFrom: addDays(new Date(), -31).toString(),
+            DOSTo: addDays(new Date(), 0).toString(),
                 lastStatements: "", includePatientsWithZero: false, balanceFrom: '', balanceTo: ''
             })
             setSearchParams(["", "true", "", "", "", "", "", "0", "", "", "-1"]);

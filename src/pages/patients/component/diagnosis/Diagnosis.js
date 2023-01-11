@@ -109,7 +109,7 @@ function Diagnosis(props) {
                 <>
                     {
                         dialogOpenClose ? (<DiagnosisForm patientId={patientId} diagnosisId={diagnosisId} updatedData={handleUpdate} dialogOpenClose={dialogOpenClose}
-                            handleClose={handleCloseDiagnossisForm} handleSuccess={handleDialogSuccess} />)
+                            handleClose={handleCloseDiagnossisForm} handleSuccess={handleDialogSuccess} isEditable={isEditable} />)
                             : ('')
                     }
                     <Grid container direction="row" >

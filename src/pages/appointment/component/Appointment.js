@@ -1899,7 +1899,7 @@ function Appointment(props) {
                                                 })
 
                                             }} >
-                                                <FormBtn id={"save"} btnType="encounter" size="small" disabled={true}>{appointment.encounterID > 0 ? "View Encounter" : "Start Encounter"} </FormBtn>
+                                                <FormBtn id={"save"} btnType="encounter" size="small">{appointment.encounterID > 0 ? "View Encounter" : "Start Encounter"} </FormBtn>
                                             </Link>
                                             : "":''}
 

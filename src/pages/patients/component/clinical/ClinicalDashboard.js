@@ -2,24 +2,18 @@ import React, { useState, useEffect } from "react";
 import Allergies from '../../../encounter/components/encounterDetail/components/allergies/Allergies';
 import VitalSigns from './components/VitalSignClinical';
 import History from '../../../encounter/components/encounterDetail/components/history/History';
-
 import CarePlan from '../../../encounter/components/encounterDetail/components/carePlan/CarePlan';
 import Immunizations from '../../../encounter/components/encounterDetail/components/immunizations/Immunizations';
 import Diagnosis from '../../../encounter/components/encounterDetail/components/diagnosis/Diagnosis';
 import ImplantableDevices from "./components/ImplantableDevices";
-
-
 import PatientCDSrules from "./components/PatientCDSrules";
-
 import AdvanceDirectives from "./components/AdvanceDirectives";
 import HealthConcern from "./components/HealthConcern";
 import MessageList from "./components/MessageList";
 import EncounterClinical from "./components/EncounterClinical";
 import MedicationClinical from "./components/MedicationClinical";
-
 import AppointmentList from "./components/AppointmentList";
 import LabImageOrder from "./components/LabImageOrder";
-
 import { FormGroupTitle } from "../../../../components/UiElements/UiElements";
 import { PostDataAPI } from '../../../../Services/PostDataAPI';
 import { GetUserInfo } from '../../../../Services/GetUserInfo';

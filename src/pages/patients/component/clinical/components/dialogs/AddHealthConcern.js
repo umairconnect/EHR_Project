@@ -15,13 +15,12 @@ import { PostDataAPI } from '../../../../../../Services/PostDataAPI';
 import { withSnackbar } from "../../../../../../components/Message/Alert";
 import { ActionDialog } from "../../../../../../components/ActionDialog/ActionDialog";
 import SearchList from "../../../../../../components/SearchList/SearchList";
-import { IsEditable } from '../../../../../../Services/GetUserRolesRights';
 
 function AddHealthConcern({ closeDirectivesDialog, patientId, healthConcernId, healthConcernData, ...props }) {
 
     const classes = useStyles();
     const { showMessage } = props;
-    const [isPatientEditable, setIsEditable] = useState(props.IsEditable);
+    const [isEditable] = useState(props.isEditable);
     const defaultAttributes = {
         healthConcernsId: 0, patientId: patientId, healthConcernType: '',
         code: '', note: '', EffectiveDate: null, encounterId: 0, isActive: true,
@@ -168,7 +167,8 @@ function AddHealthConcern({ closeDirectivesDialog, patientId, healthConcernId, h
         }
     }
     useEffect(() => {
-
+        debugger;
+        console.log(props.isEditable)
         if (healthConcernId > 0)
             loadData();
     }, []);
@@ -343,12 +343,12 @@ function AddHealthConcern({ closeDirectivesDialog, patientId, healthConcernId, h
                             <Grid container direction="row" alignItems="flex-start" xs={12} sm={12} md={12} lg={12} xl={12}>
                                 <Grid item container direction="row" alignItems="left" justify="left" xs={2} sm={2} md={2} lg={2} xl={2} />
                                 <Grid item container direction="row" alignItems="left" justify="left" xs={9} sm={9} md={9} lg={9} xl={9}>
-                                    <FormBtn id="save" size="medium" onClick={save} disabled={!isPatientEditable}> Save </FormBtn>
+                                    <FormBtn id="save" size="medium" onClick={save} disabled={!isEditable}> Save </FormBtn>
                                     {
                                         healthConcernId > 0 ?
                                             deleteLoading ?
                                                 <FormBtn id="loadingDelete" size="medium">Delete</FormBtn> :
-                                                <FormBtn id="delete" onClick={() => deleteRecord()} size="medium" disabled={!isPatientEditable}>Delete</FormBtn>
+                                                <FormBtn id="delete" onClick={() => deleteRecord()} size="medium" disabled={!isEditable}>Delete</FormBtn>
                                             : null
                                     }
                                     <FormBtn id="reset" onClick={closeDirectivesDialog}>Cancel</FormBtn>

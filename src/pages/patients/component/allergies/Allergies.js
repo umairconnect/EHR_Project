@@ -113,7 +113,13 @@ function Allergies(props) {
                 <>
                     {
                         dialogOpenClose ?
-                            (<AllergyForm patientId={dataId} allergyId={allergyId} dialogOpenClose={dialogOpenClose} handleClose={() => handleCloseMedicationForm()} handleSuccess={handleDialogSuccess} />)
+                            (<AllergyForm
+                                patientId={dataId}
+                                allergyId={allergyId}
+                                dialogOpenClose={dialogOpenClose}
+                                handleClose={() => handleCloseMedicationForm()}
+                                handleSuccess={handleDialogSuccess}
+                                isEditable={ isEditable} />)
                             : ('')
                     }
 

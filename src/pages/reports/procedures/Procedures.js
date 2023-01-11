@@ -147,6 +147,10 @@ function Procedures({ showMessage, ...props }) {
             date_from: state.dateFrom == undefined ? "" : formatDate(state.dateFrom),
             date_to: state.dateTo == undefined ? "" : formatDate(state.dateTo)
         }
+        if (state.dateFrom > state.dateTo) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         setIsLoading(true);
         PostDataAPI("reports/getReports", params).then((result) => {
             setIsLoading(false);
@@ -168,6 +172,10 @@ function Procedures({ showMessage, ...props }) {
             code: procedureList == undefined || procedureList.length == 0 ? "" : onlyCodes + "||"+onlyValues,
             date_from: state.dateFrom == undefined ? "" : state.dateFrom,
             date_to: state.dateTo == undefined ? "" : state.dateTo
+        }
+        if (state.dateFrom > state.dateTo) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
         }
         setIsLoading(true);
         PostDataAPI("reports/loadReportGrid", params).then((result) => {

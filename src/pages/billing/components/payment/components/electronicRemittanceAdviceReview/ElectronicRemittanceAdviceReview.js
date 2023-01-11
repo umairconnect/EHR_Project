@@ -34,9 +34,17 @@ function ElectronicRemittanceAdviceReview(props) {
     const [isUpdate, setIsUpdate] = useState(false);
 
     const [showHideEraReviewDialog, setShowHideEraReviewDialog] = useState(false);
+    Date.prototype.addDays = function (days) {
+        this.setDate(this.getDate() + parseInt(days));
+        return this;
+    };
+    const [state, setState] = useState({ eraFrom: addDays(new Date(), -31).toString(), eraTo: addDays(new Date(), 0).toString()});
+  
+    function addDays(date, days) {
 
-    const [state, setState] = useState({});
-
+        date.addDays(days);
+        return date.toISOString().split('T')[0];
+    }
     //State For Action Dialog
     const [actiondialogprops, setActionDialogProps] = useState({
         actiondialogstate: false, actiondialogtitle: "Title", actiondialogmessage: "Message", actiondialogtype: "confirm"
@@ -123,6 +131,10 @@ function ElectronicRemittanceAdviceReview(props) {
     const [searchParams, setSearchParams] = useState(["", "", "", "", "", "", "", ""]);
     const reloadGrid = () => {
 
+        if (state.eraFrom > state.eraTo) {
+            showMessage("Error", "ERA From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         setSearchParams([state.payerCode,
         state.payerTraceNo,
         state.eraFrom,
@@ -135,7 +147,7 @@ function ElectronicRemittanceAdviceReview(props) {
     }
     const clearValues = () => {
         setState({
-            eraFrom: '', eraTo: '', patientId: 0, patientName: '', payerCode: 0, payerName: '', payerTraceNo: 0, checkDate: '', checkAmount: '', includeAppliedChecks: false
+            eraFrom: addDays(new Date(), -31).toString(), eraTo: addDays(new Date(), 0).toString(), patientId: 0, patientName: '', payerCode: 0, payerName: '', payerTraceNo: 0, checkDate: '', checkAmount: '', includeAppliedChecks: false
         })
         reloadGrid();
     }
@@ -345,7 +357,7 @@ function ElectronicRemittanceAdviceReview(props) {
                             <Grid item xs={12} sm={5} lg={5} xl={5} >
                                 <Grid container justify="flex-end">
                                     <FormBtn id="save" onClick={reloadGrid} btnType="search">Search</FormBtn>
-                                    <FormBtn id="reset" onClick={clearValues} btnType="search">Clear</FormBtn>
+                                    <FormBtn id="reset" onClick={clearValues} btnType="search">Clear Filter</FormBtn>
                                     <form>
                                         <div>
                                             <input ref={inputFile} style={{ display: "none" }} type="file" id="fileUploadField" onChange={handleFileUpload} accept=".txt" />

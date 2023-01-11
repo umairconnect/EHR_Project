@@ -111,6 +111,7 @@ function ImplantableDevices(props) {
                             handleClose={handleCloseImplantableForm}
                             patientId={dataId}
                             dataId={patEquipId}
+                            isEditable={isEditable}
                         />
                         : ""
                 }

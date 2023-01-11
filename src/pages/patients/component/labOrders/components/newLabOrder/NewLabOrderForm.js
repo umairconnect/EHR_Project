@@ -365,11 +365,11 @@ function NewLabOrderForm({ showHideDialog, handleClose, encounterId, labOrderDat
                             }
 
                             <FormBtn id="save" onClick={handleNext} btnType="next" disabled={!isEditable}>Next</FormBtn>
-                            <FormBtn id="reset" onClick={handleClose}> Close </FormBtn>
                             {state.labOrderId != 0 ?
                                 <FormBtn id={"save"} onClick={() => OpenCloseLogDialog(true)} size="medium" btnType="logs" >Logs</FormBtn>
                                 : null
                             }
+                            <FormBtn id="reset" onClick={handleClose}> Close </FormBtn>
                         </div>
                     </div>
                     <LogDialog

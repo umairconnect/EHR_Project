@@ -117,12 +117,24 @@ function Medication(props) {
             <div className={classes.positionRelative}>
                 <>
                     {
-                        dialogOpenClose ? (<MedicationForm patientId={dataId} medicationId={medicationId} dialogOpenClose={dialogOpenClose} handleClose={handleCloseMedicationForm} isEdit={isEdit} handleSuccess={handleDialogSuccess} />)
+                        dialogOpenClose ? (<MedicationForm
+                            patientId={dataId}
+                            medicationId={medicationId}
+                            dialogOpenClose={dialogOpenClose}
+                            handleClose={handleCloseMedicationForm}
+                            isEdit={isEdit} handleSuccess={handleDialogSuccess}
+                            isEditable={ isEditable}                        />)
                             : ('')
                     }
 
                     {viewMedicationDialog ?
-                        <MedicationViewModal patientId={dataId} medicationId={medicationId} openViewMedication={openViewMedication} closeViewMedication={closeViewMedication} />
+                        <MedicationViewModal
+                            patientId={dataId}
+                            medicationId={medicationId}
+                            openViewMedication={openViewMedication}
+                            closeViewMedication={closeViewMedication}
+                            isEditable={isEditable}
+                        />
                         : ''}
 
                     <Grid container direction="row" >

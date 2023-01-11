@@ -154,7 +154,7 @@ function PatientPortalAccess({ dialogState, handleClose, showMessage, ...props }
                                                     <Typography className={classes.cardHeading}>Patient</Typography>
                                                 </Grid>
                                                 <Grid item sm={4} md={4} lg={4}>
-                                                    <Typography className={classes.cardHeading}>Status</Typography>
+                                                    <Typography className={classes.cardHeadingRight}>Status</Typography>
                                                 </Grid>
                                                 {/*<Grid item sm={4} md={4} lg={4}>*/}
                                                 {/*    <Typography className={classes.cardHeading}>Access Code</Typography>*/}

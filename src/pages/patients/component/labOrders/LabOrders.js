@@ -341,7 +341,6 @@ function LabOrders(props) {
                     result.data.map((item, i) => {
 
                         item.action = <div style={{ width: "50%" }}>
-                            <ButtonGroup classes={{ root: classes.btnGroup }}>
                                 <Tooltip title="Print">
                                     <span><img src={PrintIcon} alt="print" className={classes.imgBtnIcon} onClick={() => printLabOrder(item.labOrderId)} /></span>
                                 </Tooltip>
@@ -355,16 +354,6 @@ function LabOrders(props) {
                                         <span><img src={Delete} alt="delete" className={classes.imgBtnIcon} onClick={() => handleDelete(item.labOrderId, item.isLabResultExists)} /></span>  
                                      </Tooltip>
                                     : ''}
-                                <span
-                                    data-id={item.labOrderId}
-                                    size="small"
-                                    aria-controls={open ? 'menu-list-grow' : undefined}
-                                    aria-haspopup="true"
-                                    onClick={handleRowAction}
-                                    className={classes.splitBtn}
-                                ><ArrowDropDownIcon />
-                                </span>
-                            </ButtonGroup>
                         </div>
                         return { ...item }
                     }));
@@ -400,9 +389,19 @@ function LabOrders(props) {
     };
     return (
         <>
-            <ManualResultForm dialogOpenClose={showhidemanualResultDialog} handleClose={() => setShowHideManualResultDialog(false)} />
-            <NewLabOrderForm imagingOrder={props.isImaginOrder} dataId={dataId} labOrderId={labOrderId} labOrderTestId={labOrderTestId} encounterId={props.encounterId} showHideDialog={labOrderDialog} handleClose={handleCloseNewOrderLabForm} />
-            <Popper style={{ zIndex: 900 }} id={id} open={open} anchorEl={anchorEl} role={undefined}>
+            <ManualResultForm
+                dialogOpenClose={showhidemanualResultDialog} handleClose={() => setShowHideManualResultDialog(false)}
+                isEditable={ isEditable}            />
+            <NewLabOrderForm
+                imagingOrder={props.isImaginOrder}
+                dataId={dataId}
+                labOrderId={labOrderId}
+                labOrderTestId={labOrderTestId}
+                encounterId={props.encounterId}
+                showHideDialog={labOrderDialog}
+                handleClose={handleCloseNewOrderLabForm}
+                isEditable={isEditable}            />
+            {/*<Popper style={{ zIndex: 900 }} id={id} open={open} anchorEl={anchorEl} role={undefined}>
                 <Paper>
                     <ClickAwayListener onClickAway={(e) => setAnchorEl(anchorEl ? null : e.currentTarget)}>
                         <MenuList autoFocusItem={open} id="menu-list-grow">
@@ -411,7 +410,7 @@ function LabOrders(props) {
                         </MenuList>
                     </ClickAwayListener>
                 </Paper>
-            </Popper>
+            </Popper>*/}
             <Grid container lg={12}>
                 <Grid container direction="row" >
                     <FormGroupTitle>{props.isImaginOrder ? "Imaging Orders" : "Lab Orders"}</FormGroupTitle>
