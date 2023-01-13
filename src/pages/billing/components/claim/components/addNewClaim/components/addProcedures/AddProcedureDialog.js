@@ -202,7 +202,7 @@ function AddProcedureDialog({ dialogOpenClose, handleClose, stateProcedures, bil
                 }
 
                 let _price = '';
-                let procObj = searchFeeScheduleCode(id, extraParam2, props.feeSchedulerProcedures);
+                let procObj = searchFeeScheduleCode(id, "", props.feeSchedulerProcedures);
 
                 if (procObj != undefined)
                     _price = procObj.facilityPrice;
@@ -272,9 +272,10 @@ function AddProcedureDialog({ dialogOpenClose, handleClose, stateProcedures, bil
         props.handleSaveProcedures(proceduresList, proceduresNDCList);
         //clearValues();
     };
-    function searchFeeScheduleCode(code, desc, myArray) {
+    function searchFeeScheduleCode(code, m1, myArray) {
         for (var i = 0; i < myArray.length; i++) {
-            if (myArray[i].procedureCode === code && myArray[i].procedureDescription === desc) {
+            var feeSchM1 = myArray[i].m1 ? myArray[i].m1 : "";
+            if (myArray[i].procedureCode === code && feeSchM1 === m1) {
                 return myArray[i];
             }
         }

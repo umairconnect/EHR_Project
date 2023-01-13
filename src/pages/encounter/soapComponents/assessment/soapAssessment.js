@@ -19,6 +19,7 @@ function SoapAssessment({ isExpand, patientId, disabled, isUpdate, ...props }) {
     var classes = useStyles();
     const MAX_EDITOR_LENGTH = 2000;
     const [errorMessages, setErrorMessages] = useState({ errorEditorMaxValue: false })
+    const [isEditable] = useState(props.isEditable)
     const [editorValue, setEditorValue] = useState(RichTextEditor.createValueFromString("", 'html'));
     const [encounterId, setEncounterId] = useState(props.encounterId);
     const [isDataExist, setIsDataExist] = useState(false);
@@ -185,7 +186,7 @@ function SoapAssessment({ isExpand, patientId, disabled, isUpdate, ...props }) {
                     {subComponentVisbility.diagnosisAttached ? <AccordionDetails>
                         <div className={classes.dignosisContain}>
                            <div>
-                                <Diagnosis disabled={disabled} patientId={patientId} encounterId={encounterId} />
+                                <Diagnosis disabled={disabled} patientId={patientId} encounterId={encounterId} isEditable={isEditable} isEncounterSpecific={ true} />
                            </div>
                     
                         </div>

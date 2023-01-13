@@ -474,10 +474,10 @@ export default function Grid({ onChange, selectedView, ...props }) {
                                                 userLocationID: item.userLocationID
                                             })
 
-                                        }}>View Encounter
+                                    }}>{"View Encounter"}
                                         </Link>
                                     </Button> :
-                                <Button variant="outlined" disabled={true} className={classes.startEncounterBtnDisable} >Start Encounter</Button>
+                                <Button variant="outlined" disabled={true} className={classes.startEncounterBtnDisable} >{"Start Encounter"}</Button>
                         return { ...item }
                         // return { ...item, clickEvent: e => handleClick(e, item.patientAppointmentID, item.patientName) }
                     }));

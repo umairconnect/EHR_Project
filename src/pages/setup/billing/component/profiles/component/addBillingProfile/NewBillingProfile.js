@@ -441,7 +441,7 @@ function NewBillingProfile({ dialogOpenClose, handleClose, ...props }) {
                 <Grid container direction="row" >
                     <Grid container direction="row">
                         <Label title="Profile Name" mandatory={true} size={2} />
-                        <Grid item xs={12} sm={4} md={4} lg={3} xl={4}>
+                        <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
                             <InputBaseField
                                 id="profileName"
                                 name="profileName"

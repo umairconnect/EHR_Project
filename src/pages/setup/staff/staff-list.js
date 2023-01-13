@@ -36,6 +36,9 @@ function StaffList(props) {
     const [isEditable, setIsEditable] = useState(false);
     const [isRoleRightChecked, setIsRoleRightChecked] = useState(false);
 
+
+    const [checkStafFormDelete, setCheckStafFormDelete] = useState(false)
+    
     let user_role_rights_list = JSON.parse(GetUserRolesRights());
 
     if (user_role_rights_list != null && !isRoleRightChecked) {

@@ -315,7 +315,6 @@ function TemplateAccordion({ claimSuperBillId, saveBothTabs, ...props }) {
     const Save = e => {
         let errorList = [];
         ValidateClaimInst(errorList);
-         debugger;
         const element = document.getElementById(errorMessages.moveToElementId);
         if (element) {
             element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });

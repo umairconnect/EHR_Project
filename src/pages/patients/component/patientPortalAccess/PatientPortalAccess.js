@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 //material ui 
 import { Grid, Card, Dialog, Typography } from '@material-ui/core';
@@ -38,31 +38,34 @@ function PatientPortalAccess({ dialogState, handleClose, showMessage, ...props }
         }))
     }
     useEffect(() => {
-   
-      if(confirmDialogState == false)
-        loadPatientData()
-    });
+        
+        if (confirmDialogState != true) {
+            loadPatientData()
+        }
+    },[]);
     const loadPatientData = () => {
         
-        if (state.name == null) {
+            
             PostDataAPI("patient/getPatient", patientId).then((result) => {
                 if (result.success && result.data != null) {
-                    //debugger
+                    
                     var invitation = state.invitationStatus;
                     setState(result.data);
                     setState(prevState => ({
                         ...prevState,
-                        invitationStatus: result.data.invitationStatus ? result.data.invitationStatus:'',
+                        invitationStatus: result.data.invitationStatus ? result.data.invitationStatus : '',
+                        name: result.data.name,
+                        emailAddress: result.data.emailAddress,
+                        //createDate: result.data.createDate
                     }));
-                    
-                     date = formatDate(result.data.createDate.toString().split('T')[0]);
+
+                    date = formatDate(result.data.createDate.toString().split('T')[0]);
                     //if (date) {
                     //    var splitedDate = date.toString();
                     //    registeredDate = formatDate(splitedDate.split('T')[0]);
                     //}
                 }
             })
-        }
 
     }
 
@@ -72,10 +75,14 @@ function PatientPortalAccess({ dialogState, handleClose, showMessage, ...props }
                 if (result.success && result.data != null) {
                     
                     var invitation = state.invitationStatus;
+                    
                     setState(result.data);
                     setState(prevState => ({
                         ...prevState,
                         invitationStatus: result.data.invitationStatus ? result.data.invitationStatus : '',
+                        name: result.data.name,
+                        emailAddress: result.data.emailAddress,
+                       // createDate: result.data.createDate
                     }));
                     
                     date = formatDate((state.createDate).toString().split('T')[0]);
@@ -89,28 +96,28 @@ function PatientPortalAccess({ dialogState, handleClose, showMessage, ...props }
        
 
     }
-  
+
 
     const RevokeInvitation = () => {
-       
-        
-            PostDataAPI("patient/RevokeInvitation", state).then((result) => {
-                if (result.success && result.data != null) {
-                    loadPatientUpdatedData();
-                    showMessage("Success", "Access Revoked Successfully.", "success", 8000);
-                    
-                    
-                }
-            })
-        
+
+
+        PostDataAPI("patient/RevokeInvitation", state).then((result) => {
+            if (result.success && result.data != null) {
+                loadPatientUpdatedData();
+                showMessage("Success", "Access Revoked Successfully.", "success", 8000);
+
+
+            }
+        })
+
 
     }
     const CancelInvitation = () => {
-      
-        
+
+
         PostDataAPI("patient/RevokeInvitation", state).then((result) => {
             if (result.success && result.data != null) {
-                
+
                 showMessage("Success", "Invitation Cancelled Successfully.", "success", 2000);
                 loadPatientUpdatedData();
             }
@@ -208,52 +215,47 @@ function PatientPortalAccess({ dialogState, handleClose, showMessage, ...props }
                                                                     state.emailAddress}
                                                             </Typography>
                                                         </Grid>
-                                                        <Grid item sm={4} md={4} lg={4} >
+                                                        <Grid item sm={5} md={5} lg={5} >
                                                             {!state.invitationStatus && state.invitationStatus === '' ?
-                                                                 <InputBaseField
-                                                                    id="inviteEmail"
-                                                                    name="inviteEmail"
-                                                                    // IsDisabled={true}
+                                                                <InputBaseField
+                                                                    id="emailAddress"
+                                                                    name="emailAddress"
+                                                                    IsDisabled={true}
                                                                     onChange={handleChange}
                                                                     value={state.emailAddress}
-                                                                /> 
-                                                          
+                                                                />
+
                                                                 :
-                                                                <Typography className={classes.cardText}>{formatDate(String(state.createDate).split('T')[0])}</Typography>
+                                                                
+                                                                state.createDate?
+                                                                <Typography className={classes.cardText}>{formatDate(String(state.createDate).split('T')[0])}</Typography>:""
                                                             }
-                                                           
+
 
                                                         </Grid>
-                                                        <Grid item sm={4} md={4} lg={4} >
-                                                            {
 
-                                                                !state.invitationStatus && state.invitationStatus === '' ?
-                                                                    <FormBtn id="save" btnType="none" onClick={() => setConfirmDialogState(true)}>Send invite</FormBtn>
-                                                                    : null
-                                                            }
-                                                        </Grid>
                                                     </Grid>
-                                                   
 
-                                                    <Grid container alignItems='center' className={!state.invitationStatus && state.invitationStatus === '' ? classes.noHeight: ''}> 
+
+                                                    <Grid container alignItems='center' className={!state.invitationStatus && state.invitationStatus === '' ? classes.noHeight : ''}>
                                                         <Grid item sm={4} md={4} lg={4}>
                                                             <Typography className={classes.cardText}>
                                                                 {!state.invitationStatus && state.invitationStatus === '' ?
                                                                     '' :
-                                                                    state.cellPhone ? state.cellPhone :''}
+                                                                    state.cellPhone ? state.cellPhone : ''}
                                                             </Typography>
                                                             <Typography className={classes.cardText}></Typography>
                                                         </Grid>
                                                         {/* <Label title="Walker R. David" size={4} /> */}
                                                         <Grid item sm={4} md={4} lg={4} >
                                                             {
-                                                                
-                                                                    state.invitationStatus && state.invitationStatus === 'pending' ?
-                                                                        <>
-                                                                            <LinkS onClick={() => setConfirmDialogState(true)}>Resend invite</LinkS> | <LinkS onClick={CancelInvitation} >Cancel Invite</LinkS>
-                                                                        </> :
-                                                                        state.invitationStatus && state.invitationStatus === 'accepted' ?
-                                                                            <LinkS onClick={RevokeInvitation} >Revoke Access</LinkS> : null
+
+                                                                state.invitationStatus && state.invitationStatus === 'pending' ?
+                                                                    <>
+                                                                        <LinkS onClick={() => setConfirmDialogState(true)}>Resend Invite</LinkS> | <LinkS onClick={CancelInvitation} >Cancel Invite</LinkS>
+                                                                    </> :
+                                                                    state.invitationStatus && state.invitationStatus === 'accepted' ?
+                                                                        <LinkS onClick={RevokeInvitation} >Revoke Access</LinkS> : null
                                                             }
 
                                                         </Grid>
@@ -326,10 +328,17 @@ function PatientPortalAccess({ dialogState, handleClose, showMessage, ...props }
                         <div className={classes.footer}>
 
                             <div className={classes.footerRight}>
+                                {
+
+                                    !state.invitationStatus && state.invitationStatus === '' ?
+                                        <FormBtn id="save" btnType="none" onClick={() => setConfirmDialogState(true)}>Send Invite</FormBtn>
+                                        : null
+                                }
                                 <FormBtn id="reset" onClick={handleClose}> Cancel </FormBtn>
-                               {/* <FormBtn id="save" btnType="done" >Done</FormBtn>*/}     
+                                {/* <FormBtn id="save" btnType="done" >Done</FormBtn>*/}
                             </div>
                         </div>
+
                     </div>
                 </div>
             </Dialog>

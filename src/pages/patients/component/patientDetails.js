@@ -83,7 +83,6 @@ export default function PatientDetails(props) {
         })
     }
     useEffect(() => {
-        debugger;
         console.log(props.isEditable)
         saveAuditLogInfo();
         if (isSidebarOpened) {
@@ -145,24 +144,24 @@ export default function PatientDetails(props) {
                     <TabPanel value={value} index={2}>
                         {value == 2 ? (<>
 
-                            <Appointments editConfirmation={false} patientName={patientName} dataId={dataId} />
+                            <Appointments editConfirmation={false} patientName={patientName} dataId={dataId} isEditable={props.isEditable} />
                         </>) : ""}
                     </TabPanel>
                     <TabPanel value={value} index={3}>
-                        <Documents dataId={dataId} />
+                        <Documents dataId={dataId} isEditable={props.isEditable} />
                     </TabPanel>
                     <TabPanel value={value} index={4}>
-                        <Diagnosis dataId={dataId} />
+                        <Diagnosis dataId={dataId} isEditable={props.isEditable} />
                     </TabPanel>
                     <TabPanel value={value} index={5}>
 
                         {value == 5 ? (<>
-                            <Allergies dataId={dataId} />
+                            <Allergies dataId={dataId} isEditable={props.isEditable} />
                         </>) : ""}
                     </TabPanel>
                     <TabPanel value={value} index={6}>
                         {value == 6 ? (<>
-                            <Medication dataId={dataId} />
+                            <Medication dataId={dataId} isEditable={props.isEditable} />
                         </>) : ""}
 
                     </TabPanel>
@@ -176,7 +175,7 @@ export default function PatientDetails(props) {
                         <LabOrders isImaginOrder={true} dataId={dataId} isEditable={props.isEditable} />
                     </TabPanel>
                     <TabPanel value={value} index={17}>
-                        <ImplantableDevices dataId={dataId} />
+                        <ImplantableDevices dataId={dataId} isEditable={props.isEditable} />
                     </TabPanel>
                 </div>
             </div>

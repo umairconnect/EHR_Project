@@ -223,7 +223,7 @@ function TransactionsByAppointment(props) {
         const onlyPatNames = patientList.filter(d => d.isDeleted == false).map(d => d.patientName).join(",");
         const onlyLocIds = locationList.filter(d => d.isDeleted == false).map(d => d.locationId).join(",");
         const onlyLocName = locationList.filter(d => d.isDeleted == false).map(d => d.locationName).join(",");
-        setIsLoading(true);
+     
         var params = {
             reportName: "Transactions by Appointment",
             Date_From: state.dateFrom == undefined ? "" : formatDate(state.dateFrom),
@@ -232,6 +232,11 @@ function TransactionsByAppointment(props) {
             Location: locationList.filter(d => d.isDeleted == false).length == 0 ? "" : onlyLocIds + "||" + onlyLocName,
             Room: state.roomID == undefined ? "" : state.roomID.toString()
         }
+        if (state.dateFrom > state.dateTo) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
+        setIsLoading(true);
         PostDataAPI("reports/getReports", params).then((result) => {
             setIsLoading(false);
             if (result.success && result.data != null) {
@@ -249,7 +254,6 @@ function TransactionsByAppointment(props) {
         const onlyPatNames = patientList.filter(d => d.isDeleted == false).map(d => d.patientName).join(",");
         const onlyLocIds = locationList.filter(d => d.isDeleted == false).map(d => d.locationId).join(",");
         const onlyLocName = locationList.filter(d => d.isDeleted == false).map(d => d.locationName).join(",");
-        setRowsData([{}]);
 
         var params = {
             reportName: "Transactions by Appointment",
@@ -259,7 +263,12 @@ function TransactionsByAppointment(props) {
             Location: locationList.filter(d => d.isDeleted == false).length == 0 ? "" : onlyLocIds + "||" + onlyLocName,
             Room: state.roomID == undefined ? "" : state.roomID.toString()
         }
+        if (state.dateFrom > state.dateTo) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         setIsLoading(true);
+        setRowsData([{}]);
         PostDataAPI("reports/loadReportGrid", params).then((result) => {
             setIsLoading(false);
             if (result.success && result.data != null) {

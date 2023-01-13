@@ -140,6 +140,10 @@ function PatientInsuranceAuthorizationReport(props) {
             Date_To: state.dateTo == undefined ? "" : formatDate(state.dateTo),
             Status: state.status
         }
+        if (state.dateFrom > state.dateTo) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         setIsLoading(true);
         PostDataAPI("reports/getReports", params).then((result) => {
             setIsLoading(false);
@@ -163,6 +167,10 @@ function PatientInsuranceAuthorizationReport(props) {
             Date_From: state.dateFrom == undefined ? "" : state.dateFrom,
             Date_To: state.dateTo == undefined ? "" : state.dateTo,
             Status: state.status
+        }
+        if (state.dateFrom > state.dateTo) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
         }
         setIsLoading(true);
         PostDataAPI("reports/loadReportGrid", params).then((result) => {

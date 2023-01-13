@@ -42,7 +42,6 @@ function LabResults({ ...props }) {
     //
 
     useEffect(() => {
-        debugger;
         setIntialValues();
 
         var params = {

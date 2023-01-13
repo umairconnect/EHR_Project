@@ -139,6 +139,10 @@ export default makeStyles(theme => ({
     fontFamily: "Lato",
     backgroundColor: "white",
     border: "1px solid #DDDDDD",
+    "& .disabled": {
+      backgroundColor: "#f3f3f3",
+      color: "#4A4A4A"
+    },
   },
   selectBaseInput: {
     border: "1px solid #DDDDDD",

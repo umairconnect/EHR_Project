@@ -198,6 +198,10 @@ const ProductivityReport = ({ showMessage, ...props }) => {
             Provider: providerList.filter(d => d.isDeleted == false).length == 0 ? "" : onlyProviderIds + "||" + onlyProviderNames,
             No_Show: state.noShow + ""
         }
+        if (state.fromDate > state.toDate) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         setIsLoading(true);
         PostDataAPI("reports/getReports", params).then((result) => {
             setIsLoading(false);
@@ -228,6 +232,10 @@ const ProductivityReport = ({ showMessage, ...props }) => {
             setProviderList([{ providerId: userInfo.loggedInUserID, providerName: userInfo.firstName + " " + userInfo.lastName, isDeleted: false, patientDoesNotHave: false }])
         }
         setIsFirstTime(false);
+        if (state.fromDate > state.toDate) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         
         setIsLoading(true);
         PostDataAPI("reports/loadReportGrid", params).then((result) => {

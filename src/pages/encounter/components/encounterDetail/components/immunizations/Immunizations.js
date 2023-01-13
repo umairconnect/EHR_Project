@@ -26,7 +26,6 @@ function Immunizations(props) {
 
     useEffect(() => {
         console.log(props.isEditable)
-        debugger;
         console.log(props.encounterId);
         initialization();
 

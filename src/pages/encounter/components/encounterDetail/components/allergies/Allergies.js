@@ -71,7 +71,7 @@ function Medication(props) {
                     result.data.map((item, i) => {
                         return {
                             listTitle: item.text1,
-                            listSeverity: item.text2 + item.id1 == encounterId ? ' ✔️ ' : '' ,
+                            listSeverity: item.text2 ? ": " + item.text2:'' + item.id1 == encounterId ? ' ✔️ ' : '' ,
                             itemId: item.id,
                             status: item.text3 == "True" ? "Active" : "In-active"
                         };
@@ -123,32 +123,32 @@ function Medication(props) {
                                                             switch (item.listSeverity) {
                                                                 case 'Mild':
                                                                     return (
-                                                                        <span style={{ color: "#F2994A" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#F2994A" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Moderate':
                                                                     return (
-                                                                        <span style={{ color: "#F2994A" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#F2994A" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Mild to Moderate':
                                                                     return (
-                                                                        <span style={{ color: "#F2994A" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#F2994A" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Moderate to severe':
                                                                     return (
-                                                                        <span style={{ color: "#f45a1f" }}>  {`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#f45a1f" }}>  {`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Severe':
                                                                     return (
-                                                                        <span style={{ color: "#e74347" }}>  {`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#e74347" }}>  {`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Fatal':
                                                                     return (
-                                                                        <span style={{ color: "#dd3232" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#dd3232" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 default:
                                                                     return (
                                                                         item.listSeverity != null ?
-                                                                            `: ${item.listSeverity}` : ""
+                                                                            `${item.listSeverity}` : ""
                                                                     );
 
                                                             }
@@ -166,15 +166,15 @@ function Medication(props) {
                                                             switch (item.listSeverity) {
                                                                 case 'Mild':
                                                                     return (
-                                                                        <span style={{ color: "#F2994A" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#F2994A" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Moderate':
                                                                     return (
-                                                                        <span style={{ color: "#F2994A" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#F2994A" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Mild to Moderate':
                                                                     return (
-                                                                        <span style={{ color: "#F2994A" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#F2994A" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Moderate to severe':
                                                                     return (
@@ -182,16 +182,16 @@ function Medication(props) {
                                                                     );
                                                                 case 'Severe':
                                                                     return (
-                                                                        <span style={{ color: "#e74347" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#e74347" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Fatal':
                                                                     return (
-                                                                        <span style={{ color: "#dd3232" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#dd3232" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 default:
                                                                     return (
                                                                         item.listSeverity != null ?
-                                                                            `: ${item.listSeverity}` : ""
+                                                                            `${item.listSeverity}` : ""
                                                                     );
 
                                                             }
@@ -243,32 +243,32 @@ function Medication(props) {
                                                             switch (item.listSeverity) {
                                                                 case 'Mild':
                                                                     return (
-                                                                        <span style={{ color: "#F2994A" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#F2994A" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Moderate':
                                                                     return (
-                                                                        <span style={{ color: "#F2994A" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#F2994A" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Mild to Moderate':
                                                                     return (
-                                                                        <span style={{ color: "#F2994A" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#F2994A" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Moderate to severe':
                                                                     return (
-                                                                        <span style={{ color: "#f45a1f" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#f45a1f" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Severe':
                                                                     return (
-                                                                        <span style={{ color: "#e74347" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#e74347" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Fatal':
                                                                     return (
-                                                                        <span style={{ color: "#dd3232" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#dd3232" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 default:
                                                                     return (
                                                                         item.listSeverity != null ?
-                                                                            `: ${item.listSeverity}` : ""
+                                                                            `${item.listSeverity}` : ""
                                                                     );
 
                                                             }
@@ -286,27 +286,27 @@ function Medication(props) {
                                                             switch (item.listSeverity) {
                                                                 case 'Mild':
                                                                     return (
-                                                                        <span style={{ color: "#F2994A" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#F2994A" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Moderate':
                                                                     return (
-                                                                        <span style={{ color: "#F2994A" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#F2994A" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Mild to Moderate':
                                                                     return (
-                                                                        <span style={{ color: "#F2994A" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#F2994A" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Moderate to severe':
                                                                     return (
-                                                                        <span style={{ color: "#f45a1f" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#f45a1f" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Severe':
                                                                     return (
-                                                                        <span style={{ color: "#e74347" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#e74347" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 case 'Fatal':
                                                                     return (
-                                                                        <span style={{ color: "#dd3232" }}>{`: ${item.listSeverity}`}</span>
+                                                                        <span style={{ color: "#dd3232" }}>{`${item.listSeverity}`}</span>
                                                                     );
                                                                 default:
                                                                     return (

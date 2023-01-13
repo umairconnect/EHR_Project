@@ -148,7 +148,7 @@ function FeeSchedule(props) {
                 :
                 <Container maxWidth={false} className={classes.positionRelative}>
 
-                    <div style={{ minHeight: "45px" }}>
+                    <div style={{ minHeight: "45px", display: 'inline', position: 'relative' }}>
                         <Button
                             size="small"
                             className={classes.newAddBtn2}

@@ -22,7 +22,7 @@ export default makeStyles(theme => ({
     content: {
         flex: "1 1 auto",
         maxHeight: "580px",
-        minHeight: "200px",
+        //minHeight: "200px",
         // overflow: "auto",
         marginBottom: "10px"
     },

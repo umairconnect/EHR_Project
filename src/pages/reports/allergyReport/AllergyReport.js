@@ -284,6 +284,11 @@ function AllergyReport({ showMessage, ...props }) {
             Date_To: state.allergyOnset == 'Specific_Date' ? state.toDate == undefined ? "" : formatDate(state.toDate) : '',
             Status: state.status == '' ? "" : state.status + "||" + state.statusLabel
         }
+
+        if (state.allergyOnset == 'Specific_Date' && state.fromDate > state.toDate) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         setIsLoading(true);
 
         PostDataAPI("reports/getReports", params).then((result) => {
@@ -319,6 +324,10 @@ function AllergyReport({ showMessage, ...props }) {
             Date_From: state.allergyOnset == 'Specific_Date' ? state.fromDate == undefined ? "" : state.fromDate : '',
             Date_To: state.allergyOnset == 'Specific_Date' ? state.toDate == undefined ? "" : state.toDate : '',
             Status: state.status == '' ? "" : state.status + "||" + state.statusLabel
+        }
+        if (state.allergyOnset == 'Specific_Date' && state.fromDate > state.toDate) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
         }
         setIsLoading(true);
         PostDataAPI("reports/loadReportGrid", params).then((result) => {

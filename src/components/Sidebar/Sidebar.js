@@ -406,7 +406,7 @@ function Sidebar({ location, updatMessage }) {
 
                             <div className={classes.help}>
                                
-                                <a href="./Documents/EHR_User_Manual.pdf" target="_blank"> <img src={Help} alt='icon' /> Help</a>
+                                <a href="./Help" target="_blank"> <img src={Help} alt='icon' /> Help</a>
                             </div>
 
                         </List>
@@ -433,7 +433,7 @@ function Sidebar({ location, updatMessage }) {
                             <img src={InfoIcon} className={classes.infoIcon} />
                         </Grid>
                         <Grid container direction="row" lg={12}>
-                            <p className={classes.paragraf}>Your emergency access has been de-activated.</p>
+                            <p className={classes.paragraf}>Your emergency access has been Deactivated.</p>
 
                         </Grid>
 

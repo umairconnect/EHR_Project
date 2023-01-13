@@ -99,7 +99,6 @@ function InsuranceDetails({ ...props}) {
 
     useEffect(() => {
         GetInsuranceDetailData();
-        
     }, [])
     return (
         <> <div style={{ margin: "0px 10px" }}>

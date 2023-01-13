@@ -193,7 +193,7 @@ export default makeStyles(theme => ({
     
     },
     "& img": {
-      padding: '6px 11px',
+      padding: '6px 13px',
     }
   },
 

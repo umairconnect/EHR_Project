@@ -68,11 +68,14 @@ export default function SearchGrid({ isDeleted, code, apiurl, Assignnew, onEdit,
         onDelete(id);
     }
     const OpenAssignForm = (id) => {
-
         setAssignFormDialogState(true);
         setFormId(id)
     }
     const loadData = (filterValues) => {
+        //trim filter value 
+        Object.keys(filterValues).forEach((item) => {
+            filterValues[item] = filterValues[item] ? filterValues[item].trim():'';
+        });
         setIsLoading(true)
         PostDataAPI(props.apiUrl, filterValues).then((result) => {
             setIsLoading(false);
@@ -157,10 +160,10 @@ export default function SearchGrid({ isDeleted, code, apiurl, Assignnew, onEdit,
 
         const currValue = e.target.value;
         setValue(currValue);
-        if (currValue && currValue != undefined && currValue != null && currValue != "") {
+        if (currValue && currValue != undefined && currValue != null && currValue != "")
+        {
             let filteredData = [];
-            
-                filteredData=[...gridData];
+            filteredData = [...gridData];
             filteredData = filteredData.filter(entry => {
                 var hasValue = false;
                 if (props.columnCode == 'AppointmentProfile') {

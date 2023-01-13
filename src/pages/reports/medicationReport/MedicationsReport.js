@@ -291,6 +291,10 @@ function MedicationReport({ showMessage, ...props }) {
             Date_To: state.dateTo == undefined ? "" : state.dateTo
 
         }
+        if (state.dateFrom > state.dateTo) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         setIsLoading(true);
         PostDataAPI("reports/loadReportGrid", params).then((result) => {
             setIsLoading(false);
@@ -319,6 +323,10 @@ function MedicationReport({ showMessage, ...props }) {
             Date_From: state.dateFrom == undefined ? "" : formatDate(state.dateFrom),
             Date_To: state.dateTo == undefined ? "" : formatDate(state.dateTo)
 
+        }
+        if (state.dateFrom > state.dateTo) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
         }
         setIsLoading(true);
         PostDataAPI("reports/getReports", params).then((result) => {

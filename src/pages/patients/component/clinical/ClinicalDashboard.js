@@ -59,7 +59,7 @@ function ClinicalDashboard({ dataId, ...props }) {
                 <div className={classes.cententLeft}>
                     {signed ?
                         <div className={classes.disabledStyle}>
-                            <VitalSigns disabled={signed} dataId={dataId} />
+                            <VitalSigns disabled={signed} dataId={dataId} isEditable={isEditable} />
                         </div>
                         : <VitalSigns disabled={signed} dataId={dataId} isEditable={isEditable} />
                     }
@@ -98,9 +98,9 @@ function ClinicalDashboard({ dataId, ...props }) {
                 <div className={classes.cententLeft}>
                     {signed ?
                         <div className={classes.disabledStyle}>
-                            <EncounterClinical patientId={dataId}></EncounterClinical>
+                            <EncounterClinical patientId={dataId} isEditable={isEditable}></EncounterClinical>
                         </div>
-                        : <EncounterClinical patientId={dataId}></EncounterClinical>
+                        : <EncounterClinical patientId={dataId} isEditable={isEditable}></EncounterClinical>
                     }
                     {signed ?
                         <div className={classes.disabledStyle}>
@@ -109,9 +109,9 @@ function ClinicalDashboard({ dataId, ...props }) {
                         : <MedicationClinical patientId={dataId} disabled={signed} isEditable={isEditable}></MedicationClinical>
                     }
 
-                    <LabImageOrder patientId={dataId}></LabImageOrder>
+                    <LabImageOrder patientId={dataId} isEditable={isEditable}></LabImageOrder>
 
-                    <AppointmentList patientId={dataId}></AppointmentList>
+                    <AppointmentList patientId={dataId} isEditable={isEditable}></AppointmentList>
                 </div>
             </div>
         </>

@@ -367,12 +367,9 @@ function ScheduleSlotsForm(props) {
     }
 
     function save() {
-
-        debugger;
         var todayDate = toDayDate();
 
         var success = true;
-        debugger;
         if (!state.duration || state.duration === "") {
 
             setErrorMessages(prevState => ({

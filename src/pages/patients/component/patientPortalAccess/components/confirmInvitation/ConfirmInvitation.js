@@ -77,7 +77,7 @@ function ConfirmInvitation({ dialogState, handleClose, showMessage, ...props }) 
                             >
                                 <Grid item lg={12}>
                                     <ErrorOutlineIcon className={classes.WarningIcon} />
-                                    <Typography className={classes.cardText}>By clicking “invite” you affirm that the patient or patient representative is authorized to use the contact information provided.</Typography>
+                                    <Typography className={classes.cardText}>By clicking "Invite" you affirm that the patient is authorized to access his record(s).</Typography>
                                 </Grid>
                             </Grid>
                         </Scrollbars>
@@ -85,8 +85,8 @@ function ConfirmInvitation({ dialogState, handleClose, showMessage, ...props }) 
                     <div className={classes.footer}>
 
                         <div className={classes.footerRight}>
-                            <FormBtn id="reset" onClick={handleClose}> Cancel </FormBtn>
                             <FormBtn id="save" disabled={isdisabled} onClick={loadPatientData} btnType="invite" >Invite</FormBtn>
+                            <FormBtn id="reset" onClick={handleClose}> Cancel </FormBtn>
                         </div>
                     </div>
                 </div>

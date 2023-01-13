@@ -467,7 +467,6 @@ function ScheduleSlots(props) {
 
     }
     useEffect(() => {
-        debugger;
         let loginUser = JSON.parse(GetUserInfo()).user
         loadData();
 

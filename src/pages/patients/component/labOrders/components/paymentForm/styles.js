@@ -384,4 +384,15 @@ export default makeStyles(theme => ({
             backgroundColor: "#F4F4F4",
         }
     },
+    tempDialogPaper: {
+        width: "30%",
+        maxWidth: '30%',
+        padding: "22px 20px"
+    },
+    Templatecontent: {
+        flex: "1 1 auto",
+        marginBottom: 0,
+        padding: "10px",
+        overflow: "initial !important",
+    },
 }))

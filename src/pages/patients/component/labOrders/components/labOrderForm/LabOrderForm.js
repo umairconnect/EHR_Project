@@ -40,7 +40,7 @@ import { InputBaseField, SelectField, TextareaField, CheckboxField, Link } from 
 import RichTextEditor from 'react-rte';
 import { PostDataAPI } from "../../../../../../Services/PostDataAPI"
 import { GetDataAPI } from '../../../../../../Services/GetDataAPI';
-import { FormBtn, FormGroupTitle, Label, LinkS } from "../../../../../../components/UiElements/UiElements";
+import { FormBtn, FormGroupTitle, Label, LinkS, DraggableComponent } from "../../../../../../components/UiElements/UiElements";
 import Popover from '@material-ui/core/Popover';
 import SearchList from "../../../../../../components/SearchList/SearchList";
 import { withSnackbar } from "../../../../../../components/Message/Alert";
@@ -61,7 +61,7 @@ function LabOrderForm({ showHideDialog, isLastStep, handleBack, handleNext, hand
 
     // handle const data
     const { showMessage } = props;
-     var user = sessionStorage.getItem('user_info');
+    var user = sessionStorage.getItem('user_info');
     var userdata = JSON.parse(user).user;
     const [isEditable] = useState(userdata.isProvider ? true : (props.imagingOrder == true ? IsEditable("imaging") : IsEditable("lab")));
     const [dropDownActionId, setDropDownActionId] = useState(0);
@@ -101,6 +101,7 @@ function LabOrderForm({ showHideDialog, isLastStep, handleBack, handleNext, hand
 
     //For DropDownAction
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [showHideTemplateNameDialog, setShowHideTemplateNameDialog] = useState(false);
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popper' : undefined;
     const handleRowAction = (e) => {
@@ -148,10 +149,24 @@ function LabOrderForm({ showHideDialog, isLastStep, handleBack, handleNext, hand
     const handleChange = (e) => {
 
         const { name, value } = e.target;
-        setState(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
+        if (name == 'templateName') {
+            setStateSaveAsTemplate(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+            if (value && value != '') {
+                setErrorMessages(prevState => ({
+                    ...prevState,
+                    errorTemplateName: false
+                }));
+            }
+        }
+        else {
+            setState(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
     }
 
     const handleChangeTestNote = (e) => {
@@ -190,10 +205,6 @@ function LabOrderForm({ showHideDialog, isLastStep, handleBack, handleNext, hand
     const handleSearchSpecimenType = (name, item) => {
 
         const { id, value } = item;
-
-        //if (state.labOrderSpecimen[labOrderTestsCount]) {
-        //    state.labOrderSpecimen[labOrderTestsCount][name] = value;
-        //}
 
         setOrderSpecimen(prevState => ({
             ...prevState,
@@ -593,10 +604,7 @@ function LabOrderForm({ showHideDialog, isLastStep, handleBack, handleNext, hand
         }
 
     }
-
-    function saveAsLabOrderTemplate(e) {
-
-
+    const openTemplateNameDialog = (e) => {
         setAnchorEl(anchorEl ? null : e.currentTarget)
         if (state.labId === "" || state.labId === null) {
             showMessage("Error", "Please select " + props.imagingOrder ? "Image Order" : "Lab Order", "error", 8000);
@@ -613,51 +621,66 @@ function LabOrderForm({ showHideDialog, isLastStep, handleBack, handleNext, hand
             showMessage("Error", "Please select al least 1 order diagnose", "error", 8000);
             return;
         }
+        setShowHideTemplateNameDialog(true);
+    }
+    function saveAsLabOrderTemplate(e) {
+        if (!stateSaveAsTemplate.templateName || stateSaveAsTemplate.templateName == '') {
+            setErrorMessages(prevState => ({
+                ...prevState,
+                errorTemplateName: true
+            }));
+        }
+        else {
+            setErrorMessages(prevState => ({
+                ...prevState,
+                errorTemplateName: false
+            }));
+        }
+        if (stateSaveAsTemplate.templateName && stateSaveAsTemplate.templateName != '') {
+            let _labOrderTemplateTest = [];
+            let _labOrderTemplateDiagnosis = [];
+            stateSaveAsTemplate.labOrderTemplateId = 0;
+            stateSaveAsTemplate.locationId = state.locationId ? state.locationId : null;
+            stateSaveAsTemplate.labId = state.labId ? parseInt(state.labId) : null;
+            //stateSaveAsTemplate.templateName = state.orderTests[0] ? state.orderTests[0].testName : "";
 
-        let _labOrderTemplateTest = [];
-        let _labOrderTemplateDiagnosis = [];
-        stateSaveAsTemplate.labOrderTemplateId = 0;
-        stateSaveAsTemplate.locationId = state.locationId ? state.locationId : null;
-        stateSaveAsTemplate.labId = state.labId ? parseInt(state.labId) : null;
-        stateSaveAsTemplate.templateName = state.orderTests[0] ? state.orderTests[0].testName : "";
+            state.orderTests.map((item, i) => {
+                _labOrderTemplateTest.push({ labOrderTemplateTestId: 0, labOrderTemplateId: 0, labTestId: parseInt(item.labTestId), createdBy: item.createdBy, updatedBy: item.updatedBy, createDate: item.createDate ? item.createDate : new Date(), isDeleted: false, updateDate: new Date() });
+            });
 
-        state.orderTests.map((item, i) => {
-            _labOrderTemplateTest.push({ labOrderTemplateTestId: 0, labOrderTemplateId: 0, labTestId: parseInt(item.labTestId), createdBy: item.createdBy, updatedBy: item.updatedBy, createDate: item.createDate ? item.createDate : new Date(), isDeleted: false, updateDate: new Date() });
-        });
-
-        state.orderDiagnoses.map((itm, i) => {
-            _labOrderTemplateDiagnosis.push({ labOrderTemplateDiagnosistId: 0, labOrderTemplateId: 0, diagnosisId: null, icdCode: itm.icdCode, diagnosis: itm.diagnosis, createdBy: itm.createdBy, updatedBy: itm.updatedBy, createDate: itm.createDate ? itm.createDate : new Date(), isDeleted: false, updateDate: new Date() });
-        });
+            state.orderDiagnoses.map((itm, i) => {
+                _labOrderTemplateDiagnosis.push({ labOrderTemplateDiagnosistId: 0, labOrderTemplateId: 0, diagnosisId: null, icdCode: itm.icdCode, diagnosis: itm.diagnosis, createdBy: itm.createdBy, updatedBy: itm.updatedBy, createDate: itm.createDate ? itm.createDate : new Date(), isDeleted: false, updateDate: new Date() });
+            });
 
 
-        stateSaveAsTemplate.labOrderTemplateTestLst = _labOrderTemplateTest;
-        stateSaveAsTemplate.LabOrderTemplateDiagnosisLst = _labOrderTemplateDiagnosis;
+            stateSaveAsTemplate.labOrderTemplateTestLst = _labOrderTemplateTest;
+            stateSaveAsTemplate.LabOrderTemplateDiagnosisLst = _labOrderTemplateDiagnosis;
 
 
-        let method = "patient/labOrder/saveLabOrderTemplate";
+            let method = "patient/labOrder/saveLabOrderTemplate";
 
-        setIsSaveCall(true);
-        PostDataAPI(method, stateSaveAsTemplate, true).then((result) => {
+            setIsSaveCall(true);
+            setLoading({ isSaving: true });
+            PostDataAPI(method, stateSaveAsTemplate, true).then((result) => {
+                if (result.success == true) {
+                    if (result.success === true && result.data != null) {
 
-            if (result.success == true) {
+                        showMessage("Success", "Template saved successfully.", "success", 3000);
+                        setIsSaveCall(false);
 
+                    }
+                    props.templateUpdated();
+                }
+                else {
 
-                if (result.success === true && result.data != null) {
-
-                    showMessage("Success", "Template saved successfully.", "success", 3000);
+                    showMessage("Error", result.message, "error", 3000);
                     setIsSaveCall(false);
 
                 }
-                props.templateUpdated();
-            }
-            else {
-
-                showMessage("Error", result.message, "error", 3000);
-                setIsSaveCall(false);
-
-            }
-        })
-
+                setLoading({ isSaving: false });
+                setShowHideTemplateNameDialog(false);
+            })
+        }
     }
 
     const SaveLabOrder = () => {
@@ -959,16 +982,6 @@ function LabOrderForm({ showHideDialog, isLastStep, handleBack, handleNext, hand
     return (
         <>
 
-            {/* <Popper style={{ zIndex: 11111 }} id={id} open={open} anchorEl={anchorEl} role={undefined}>
-                <Paper>
-                    <ClickAwayListener onClickAway={(e) => setAnchorEl(anchorEl ? null : e.currentTarget)}>
-                        <MenuList autoFocusItem={open} id="menu-list-grow">
-                            <MenuItem data-id="saveAs" onClick={saveAsLabOrderTemplate}>Save As Template</MenuItem>
-                        </MenuList>
-                    </ClickAwayListener>
-                </Paper>
-            </Popper> */}
-
             <div className={classes.box} >
 
                 <div className={classes.header} id="draggable-dialog-title">
@@ -1117,22 +1130,7 @@ function LabOrderForm({ showHideDialog, isLastStep, handleBack, handleNext, hand
                                         </Typography>
                                     </div>
                                     <div className={classes.orderTestContent}>
-
-
-                                        {/*   <ul className={classes.orderList}>
-                                        {
-                                            state.labOrderSpecimen ?
-
-                                                state.labOrderSpecimen.filter(tmprm => tmprm.labTestId == state.labOrderTest[labOrderTestsCount].labTestId).map((item, k) => (
-
-                                                    <li key={item.labOrderTestId}>
-                                                        {item.specimenType}
-                                                        <span className={classes.deleteIcon} title="Delete"><img src={DeleteIcon} alt="delete" /></span>
-                                                    </li>
-                                                ))
-                                                : null
-                                        }
-                                    </ul>  */}
+                                        
                                     </div>
                                     <div className={classes.specimenTestContent}>
                                         {state.labOrderSpecimen && state.labOrderSpecimen.length > 0 &&
@@ -1263,25 +1261,17 @@ function LabOrderForm({ showHideDialog, isLastStep, handleBack, handleNext, hand
 
                 <div className={classes.footer}>
                     <FormBtn id="save" onClick={back} btnType="back"> Back </FormBtn>
-                    <FormBtn id="save" className={classes.signBtn} onClick={saveAsLabOrderTemplate}>Save as Template</FormBtn>
-
-
-
+                    {loading.isSaving ? <FormBtn className={classes.signBtn} id={"loadingSave"} size="medium">Saving</FormBtn>
+                        :
+                        <FormBtn id="save" className={classes.signBtn} onClick={openTemplateNameDialog}>Save as Template</FormBtn>
+                    }
                     <div className={classes.footerRight}>
                         <ButtonGroup >
                             {loading.isSaving ? <FormBtn className={classes.signBtn} id={"loadingSave"} size="medium">Saving</FormBtn>
                                 :
                                 <FormBtn id="save" size="medium" className={classes.signBtn} onClick={SaveLabOrder}>Save</FormBtn>
                             }
-                            {/* <Button
-                                className={classes.menuBtn}
-                                data-id={1}
-                                size="small"
-                                aria-controls={open ? 'menu-list-grow' : undefined}
-                                aria-haspopup="true"
-                                onClick={handleRowAction}
-                                endIcon={<ExpandMoreIcon />}>
-                            </Button> */}
+                            
                         </ButtonGroup>
                         {state.labOrderId != 0 ? <FormBtn id="delete" onClick={() => DeleteRecord()}>Delete</FormBtn> : ""}
                         <FormBtn id="save" onClick={() => movedToNextPaymentForm()} btnType="next">Next</FormBtn>
@@ -1315,6 +1305,57 @@ function LabOrderForm({ showHideDialog, isLastStep, handleBack, handleNext, hand
                 }))
                 }
             />
+            <Dialog
+                open={showHideTemplateNameDialog}
+                classes={{ paper: classes.tempDialogPaper }}
+                disableBackdropClick
+                disableEscapeKeyDown
+                PaperComponent={DraggableComponent}
+                maxWidth={"md"}>
+                <div className={classes.dialogContent}>
+                    <div className={classes.box}>
+                        <div className={classes.header} id="draggable-dialog-title">
+                            <span className={classes.crossButton} onClick={() => { setShowHideTemplateNameDialog(false) }}><img src={CloseIcon} /></span>
+                            <FormGroupTitle className={classes.lableTitleInput}>Template Name</FormGroupTitle>
+
+                        </div>
+                        <div className={classes.Templatecontent}>
+
+                            <Grid item container direction="row" xs={12} sm={12} md={12} lg={12} xl={12}>
+
+                                <Label title="Name" size={5} mandatory={true} />
+
+                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                    <InputBaseField
+                                        id="templateName"
+                                        name="templateName"
+                                        value={stateSaveAsTemplate.templateName}
+                                        onChange={handleChange}
+                                        placeholder={"Template Name"}
+
+                                    />
+                                    {errorMessages.errorTemplateName && !stateSaveAsTemplate.templateName ? (<FormHelperText style={{ color: "red" }} >
+                                        Please enter template name
+                                    </FormHelperText>) : ('')}
+                                </Grid>
+
+                            </Grid>
+
+                        </div>
+                        <div className={classes.footer}>
+                            <Grid container justify="center" >
+                                {loading.isSaving ?
+                                    <FormBtn id="loadingSave"  > Ok</FormBtn>
+                                    :
+                                    <FormBtn id="save" onClick={saveAsLabOrderTemplate}> Ok</FormBtn>
+                                }
+                                <FormBtn id="reset" onClick={() => { setShowHideTemplateNameDialog(false) }}> Close </FormBtn>
+                            </Grid>
+                        </div>
+                    </div>
+                </div>
+
+            </Dialog>
         </>
     );
 }

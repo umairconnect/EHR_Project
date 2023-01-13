@@ -90,7 +90,7 @@ function SoapReferral({ isExpand, ...props }) {
                                 (!props.disabled ?
                                     <div className={classes.noRecord}>No referral recorded yet</div>
                                     :
-                                    <div className={classes.noRecord}>No referral recorded yet</div>) :
+                                    <div className={classes.DisnoRecord}>No referral recorded yet</div>) :
                                 <ul className={classes.treeView}>
                                     {referralRowsData.map((item, i) => (
 

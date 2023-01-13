@@ -9,6 +9,7 @@ import profileWireframes from '../../../../images/icons/profile_wireframes.png';
 import { GetUserInfo } from '../../../../Services/GetUserInfo';
 import { PostDataAPI } from '../../../../Services/PostDataAPI';
 import { formatDate, formatTime, getAgeByDOB } from '../../../../components/Common/Extensions';
+import { Link, useHistory } from "react-router-dom";
 
 
 // styles
@@ -98,7 +99,13 @@ function TodayAppointments({ showMessage, ...props }) {
             : <> <div className={classes.alignmentImg}>
               <h3>No appointment scheduled for today</h3>
               <img src={NoDataShow} />
-              <a className={classes.createAppointment}>Create New Appointment</a>
+              <Link className={classes.createAppointment} to={{
+                                                    pathname: '/app/schedule',
+                                                    search: '',
+                                                    state: {
+                                                        new: "new",
+                                                    },
+                                                }}>Create New Appointment</Link>
             </div> </>
           }
           <FooterButton title={"Calender"} linkUrl={'/app/schedule'} />

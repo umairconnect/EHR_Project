@@ -17,6 +17,7 @@ function Diagnosis(props) {
     const [isEditable] = useState(props.isEditable)
     const [patientId, setPatientId] = useState(parseInt(props.patientId));
     const [encounterId, setEncounterId] = useState(parseInt(props.encounterId));
+    const [isEncounterSpecific, setIsEncounterSpecific] = useState(props.isEncounterSpecific?true:false);
     const [listRowsData, setListRowsData] = useState([]);
     const [dialogOpenClose, setDialogOpenClose] = useState(false);
     const [diagnosisId, setDiagnosisId] = useState(0);
@@ -34,11 +35,19 @@ function Diagnosis(props) {
     }
 
     const loadData = () => {
-     
-        var params = {
-            code: "patient_diagnosis",
-            parameters: [patientId ? patientId.toString() : ""]
+        var params = '';
+        if (isEncounterSpecific) {
+           params = {
+                code: "patient_diagnosis_by_encounter_id",
+                parameters: [encounterId ? encounterId.toString() : ""]
+            }
+        } else {
+            params = {
+                code: "patient_diagnosis",
+                parameters: [patientId ? patientId.toString() : ""]
+            }
         }
+        
         PostDataAPI("ddl/loadItems", params).then((result) => {
             if (result.success && result.data != null) {
                 console.log(result.data);
@@ -100,8 +109,39 @@ function Diagnosis(props) {
                     <span className={classes.addNew} title="Add New Diagnosis" onClick={() => newDiagnosis()}>{isEditable ? <img src={AddIcon} alt="Add New" />:''}</span>
                     : ""}
             </div>
-            <div className={collapse.resolved ? classes.listSubChild : classes.listSubChildOpen}>
+            {isEncounterSpecific ?
                 <>
+                    {listRowsData.length > 0 ?
+                        <ul className={classes.treeView}>
+                            {listRowsData.map((item, i) => (
+                                !props.disabled ?
+                                    (<li key={i} onClick={() => editDiagnosis(item.listId)}>
+                                        <div className={classes.treeContent}>
+                                            <div className={classes.treeIcon}><ChevronRightIcon /></div>
+                                            <div className={classes.treeLabel}> {item.listTitle}</div>
+                                        </div>
+                                    </li>)
+                                    :
+                                    (<li key={i} style={{ cursor: "default" }}>
+                                        <div className={classes.treeContent}>
+                                            <div className={classes.DistreeIcon}><ChevronRightIcon /></div>
+                                            <div className={classes.DistreeLabel}> {item.listTitle}</div>
+                                        </div>
+                                    </li>)
+                            ))}
+                        </ul> : ""
+                    }
+                    {!listRowsData || listRowsData.length <= 0 ?
+                        props.disabled ?
+                            <div className={classes.DisnoRecord}>No active diagnosis recorded yet</div>
+                            :
+                            <div className={classes.noRecord}>No active diagnosis recorded yet</div>
+                        : ""
+                    }
+                </>
+                :
+                <div className={collapse.resolved ? classes.listSubChild : classes.listSubChildOpen}>
+                    <>
                     <div className={classes.activeTitleArea}>
                         <span title="Expand" className={classes.collapseIconSpan} onClick={() => collapseActiveList(collapse.active)}>
                             {collapse.active ? <ArrowDownIcon /> : <ArrowRightIcon />}
@@ -179,7 +219,8 @@ function Diagnosis(props) {
                                 :""
                         }
                 </>
-            </div>
+            </div>}
+            
 
             {
                 dialogOpenClose ? (<DiagnosisForm patientId={patientId}

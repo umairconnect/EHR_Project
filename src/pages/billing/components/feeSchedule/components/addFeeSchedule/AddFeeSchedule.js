@@ -328,7 +328,7 @@ function AddFeeSchedule({ showHideDialog, handleClose, feeScheduleLabel, updateG
         var _proceduresArray = [];
 
         if (state.lstProcFeeSchedule) {
-            if (state.lstProcFeeSchedule.filter(tmprm => tmprm.procedureCode === id && tmprm.procedureDescription === value && tmprm.isDeleted == false) == "") {
+            if (state.lstProcFeeSchedule.filter(tmprm => tmprm.procedureCode === id && !tmprm.m1 && tmprm.isDeleted == false) == "") {
                 if (state.feeSourceCode == 'Medicare' || state.feeSourceCode == 'Existing') {
                     var percentAmt = 0;
                     var medicareAmt = 0;
@@ -580,20 +580,6 @@ function AddFeeSchedule({ showHideDialog, handleClose, feeScheduleLabel, updateG
 
     const handleModifiersChange = (name, item, row) => {
         const { id, value } = item;
-        //let lstProcedureFeeSch = [...state.lstProcFeeSchedule];
-        //let objMasterFee = masterFeeProcedures.filter(t =>
-        //    t.procedureCode == lstProcedureFeeSch[row]['procedureCode'] &&
-        //    t.m1 == id);
-        //objMasterFee = objMasterFee[0];
-        //lstProcedureFeeSch[row][name] = id;
-        //lstProcedureFeeSch[row][name.trim() + "Name"] = value;
-        //lstProcedureFeeSch[row]['facilityPrice'] = objMasterFee ? objMasterFee.facilityPrice : '';
-        //lstProcedureFeeSch[row]['medicareFee'] = objMasterFee ? objMasterFee.facilityPrice : '';
-        //setState(prevState => ({
-        //    ...prevState,
-        //    lstProcFeeSchedule: lstProcedureFeeSch
-        //}));
-
 
         setState((prevState) => {
             let temp = {
@@ -608,6 +594,7 @@ function AddFeeSchedule({ showHideDialog, handleClose, feeScheduleLabel, updateG
             temp.lstProcFeeSchedule[row][name.trim() + "Name"] = value;
             temp.lstProcFeeSchedule[row]['facilityPrice'] = objMasterFee ? objMasterFee.facilityPrice : '';
             temp.lstProcFeeSchedule[row]['medicareFee'] = objMasterFee ? objMasterFee.facilityPrice : '';
+            temp.lstProcFeeSchedule[row]['isEdited'] = true;
             loadData(temp.lstProcFeeSchedule);
             return temp
         });
@@ -794,7 +781,7 @@ function AddFeeSchedule({ showHideDialog, handleClose, feeScheduleLabel, updateG
     }
 
     const ValidateFeeScheduler = (errorList) => {
-        if (state.feeScheduleName == "" || state.feeScheduleName == undefined) {
+        if (!state.feeScheduleName) {
 
             setErrorMessages(prevState => ({
                 ...prevState,
@@ -811,7 +798,7 @@ function AddFeeSchedule({ showHideDialog, handleClose, feeScheduleLabel, updateG
             }));
         }
 
-        if (state.feeSourceCode == "" || state.feeSourceCode == undefined) {
+        if (!state.feeSourceCode) {
 
             setErrorMessages(prevState => ({
                 ...prevState,
@@ -828,7 +815,7 @@ function AddFeeSchedule({ showHideDialog, handleClose, feeScheduleLabel, updateG
             }));
         }
 
-        if (state.effectiveDate == "" || state.effectiveDate == undefined) {
+        if (!state.effectiveDate) {
 
             setErrorMessages(prevState => ({
                 ...prevState,
@@ -847,7 +834,19 @@ function AddFeeSchedule({ showHideDialog, handleClose, feeScheduleLabel, updateG
 
         if (errorList.length < 1) {
             if (state.feeScheduleId <= 0 && state.feeSourceCode === "Existing") {
-                if (state.usagePercent == '' || state.usagePercent == null) {
+                if (!state.usagePercent || !state.usageTypeCode) {
+                    setState(prevState => ({
+                        ...prevState,
+                        usageTypeCode: 0
+                    }));
+
+                    showMessage("Error", "Please enter value  in Use and select fee schedule", "error", 8000);
+                    errorList.push(true);
+                    return;
+                }
+            }
+            if (state.feeScheduleId <= 0 && state.feeSourceCode === "Medicare") {
+                if (!state.usagePercent) {
                     setState(prevState => ({
                         ...prevState,
                         usageTypeCode: 0
@@ -879,17 +878,13 @@ function AddFeeSchedule({ showHideDialog, handleClose, feeScheduleLabel, updateG
         ValidateFeeScheduler(errorList);
 
         if (errorList.length < 1) {
-
-            if (state.feeScheduleId <= 0 && state.feeSourceCode === "Existing") {
-
-                handleExistingOptCalcProceduresSave(existingScheduleValue, errorList);
-            }
-            else
-                handleFormattingAndSave(null, 0);
+            handleFormattingAndSave(null, 0);
         }
     }
+    const [isLoaded, setIsLoaded] = useState(true);
 
     const loadFeeScheduler = (feeId) => {
+        setIsLoaded(false);
         PostDataAPI('feeschedule/get', parseInt(feeId)).then((result) => {
             if (result.success && result.data != null) {
                 result.data = handleFormat(result.data);
@@ -919,6 +914,7 @@ function AddFeeSchedule({ showHideDialog, handleClose, feeScheduleLabel, updateG
             else if (result.data === null) { }
             else
                 showMessage("Error", result.message, "error", 3000);
+            setIsLoaded(true);
         })
     }
     const loadMasterFeeScheduleProcedures = (year) => {
@@ -1150,11 +1146,7 @@ function AddFeeSchedule({ showHideDialog, handleClose, feeScheduleLabel, updateG
                                 </Grid>
                             </Grid>
 
-                            <Grid container direction="row" >
-
-                                <div className={classes.divider}></div>
-
-                            </Grid>
+                        
                             {isMasterFee == true ? "" :
                                 <Grid container item direction="row" alignItems="baseline">
                                     <Grid container item direction="row" xs={12} sm={6} md={6} lg={6} xl={6}>
@@ -1231,12 +1223,7 @@ function AddFeeSchedule({ showHideDialog, handleClose, feeScheduleLabel, updateG
 
                             </Grid>
 
-                            <Grid container direction="row">
-
-                                <div className={classes.divider}></div>
-
-                            </Grid>
-
+                        
                             <Grid container direction="row" >
                                 <Label title="Fee Source" size={2} mandatory={true} />
                                 <Grid item xs={12} sm={4} md={4} lg={3} xl={3}>
@@ -1340,35 +1327,38 @@ function AddFeeSchedule({ showHideDialog, handleClose, feeScheduleLabel, updateG
                             }
                             {
                                 (state.feeScheduleId > 0 || state.feeSourceCode === "Manual") ?
-                                    <Grid container item direction="row" xs={12} sm={12} md={12} lg={12} xl={12}>
+                                    <>
+                                        <FormGroupTitle>Add Procedure</FormGroupTitle>
+                                        <Grid container item direction="row" xs={12} sm={12} md={12} lg={12} xl={12}>
 
-                                        <Label title="Procedure Code" size={2} />
+                                            <Label title="Procedure Code" size={2} />
 
-                                        <Grid item xs={12} sm={7} md={7} lg={7} xl={7}>
-                                            <SearchList
-                                                id="feeProcedureCode"
-                                                name="feeProcedureName"
-                                                value={state.feeProcedureCode}
-                                                searchTerm={state.feeProcedureName}
-                                                code="CPT"
-                                                apiUrl="ddl/loadItems"
-                                                onChangeValue={(name, item) => handleSearchChange(name, item)}
-                                                getInputValue={(value) => handleCustomCpt(value)}
-                                                placeholderTitle="Search Procedure"
-                                            />
+                                            <Grid item xs={12} sm={7} md={7} lg={7} xl={7}>
+                                                <SearchList
+                                                    id="feeProcedureCode"
+                                                    name="feeProcedureName"
+                                                    value={state.feeProcedureCode}
+                                                    searchTerm={state.feeProcedureName}
+                                                    code="CPT"
+                                                    apiUrl="ddl/loadItems"
+                                                    onChangeValue={(name, item) => handleSearchChange(name, item)}
+                                                    getInputValue={(value) => handleCustomCpt(value)}
+                                                    placeholderTitle="Search Procedure"
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12} sm={3} md={3} lg={3} xl={3}>
+                                                {props.isEditable ?
+                                                    <>
+                                                        <span className={classes.addNew} title={"Add New "} onClick={() => setShowHideAddCodeDialog(true)}>
+                                                            <img src={AddIcon} alt="Add New" />Add Custom CPT
+                                                        </span>
+                                                    </>
+                                                    : ''}
+                                            </Grid>
+                                            {/* <Grid item xs={12} sm={2} md={2} lg={2} xl={2} /> */}
+
                                         </Grid>
-                                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}>
-                                            {props.isEditable ?
-                                                <>
-                                                    <span className={classes.addNew} title={"Add New "} onClick={() => setShowHideAddCodeDialog(true)}>
-                                                        <img src={AddIcon} alt="Add New" />Add Custom CPT
-                                                    </span>
-                                                </>
-                                                : ''}
-                                        </Grid>
-                                        {/* <Grid item xs={12} sm={2} md={2} lg={2} xl={2} /> */}
-
-                                    </Grid>
+                                    </>
                                     : null
                             }
 
@@ -1377,12 +1367,8 @@ function AddFeeSchedule({ showHideDialog, handleClose, feeScheduleLabel, updateG
 
                                     <Grid container item direction="row" xs={12} sm={12} md={12} lg={12} xl={12}>
 
-                                        <Grid container item direction="row" xs={12} sm={12} md={12} lg={12} xl={12}>
-
-                                            <div className={classes.divider}></div>
-
-                                        </Grid>
-
+                                    
+                                        <FormGroupTitle>Search Procedure</FormGroupTitle>
                                         <Grid container item spacing={12} xs={12} sm={12} md={12} lg={12} xl={12}>
 
 
@@ -1399,7 +1385,7 @@ function AddFeeSchedule({ showHideDialog, handleClose, feeScheduleLabel, updateG
                                             </Grid>
 
                                             <Grid item xs={12} sm={3} md={3} lg={3} xl={3}>
-                                                <Grid container justify="flex-end" lg={12} >
+                                                <Grid container justify="flex-start" lg={12} style={{marginLeft: '8px'}}>
                                                     <FormBtn id="save" onClick={filterCustomData} >Filter</FormBtn>
                                                     <FormBtn id="reset" onClick={clearfilter}>Clear</FormBtn>
                                                 </Grid>
@@ -1411,17 +1397,14 @@ function AddFeeSchedule({ showHideDialog, handleClose, feeScheduleLabel, updateG
                                     : null
                             }
 
-                            <Grid container item direction="row" xs={12} sm={12} md={12} lg={12} xl={12}>
-
-                                <div className={classes.divider2}></div>
-
-                            </Grid>
+                        
                             {
-                                state.feeSourceCode === "Manual" || ((state.feeSourceCode === "Existing" || state.feeSourceCode === "Custom" || state.feeSourceCode === "Medicare" || state.feeSourceCode === "Master") && state.feeScheduleId > 0) ?
+                                state.feeSourceCode === "Manual" ||
+                                    ((state.feeSourceCode === "Existing" || state.feeSourceCode === "Custom" ||
+                                        state.feeSourceCode === "Medicare" || state.feeSourceCode === "Master")
+                                        && state.feeScheduleId > 0) || isLoaded == false ?
                                     <Grid container item direction="row" justify="flex-end" xs={12} sm={12} md={12} lg={12} xl={12}>
-
                                         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-
                                             <div className="custom-grid">
                                                 <Table
                                                     checkStrictly={true}

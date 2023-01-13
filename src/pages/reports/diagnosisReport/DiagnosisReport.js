@@ -266,6 +266,10 @@ function DiagnosisReport({ showMessage, ...props }) {
             Date_To: state.toDate == undefined ? "" : formatDate(state.toDate),
             Status: state.status ? state.status : ''
         }
+        if (state.fromDate > state.toDate) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         setIsLoading(true);
         PostDataAPI("reports/getReports", params).then((result) => {
             setIsLoading(false);
@@ -295,7 +299,10 @@ function DiagnosisReport({ showMessage, ...props }) {
             Date_To: state.toDate == undefined ? "" : state.toDate,
             Status: state.status ? state.status : ''
         }
-        
+        if (state.fromDate > state.toDate) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         setIsLoading(true);
         PostDataAPI("reports/loadReportGrid", params).then((result) => {
             setIsLoading(false);

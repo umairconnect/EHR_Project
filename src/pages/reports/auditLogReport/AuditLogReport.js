@@ -218,9 +218,13 @@ function AuditLogReport({ showMessage, ...props }) {
             User: userNameList.filter(d => d.isDeleted == false).length == 0 ? "" : onlyUserIds + "||" + onlyUserNames,
             Activity: stateFilters.activity == "" ? "" : stateFilters.activity,
             date_from: stateFilters.fromDate == "" ? "" : formatDate(stateFilters.fromDate),
-            date_to: stateFilters.toDate == "" ? "" : formatDate(stateFilters.toDate)
+            date_to: stateFilters.toDate == "" ? "" : formatDate(stateFilters.toDate),
+            is_export: "1"
         }
-        
+        if (state.fromDate > state.toDate) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         setIsLoading(true);
         PostDataAPI("reports/getReports", params).then((result) => {
             setIsLoading(false);
@@ -246,7 +250,12 @@ function AuditLogReport({ showMessage, ...props }) {
             User: userNameList.filter(d => d.isDeleted == false).length == 0 ? "" : onlyUserIds + "||" + onlyUserNames,
             Activity: stateFilters.activity == "" ? "" : stateFilters.activity,
             date_from: stateFilters.fromDate == "" ? "" : stateFilters.fromDate,
-            date_to: stateFilters.toDate == "" ? "" : stateFilters.toDate
+            date_to: stateFilters.toDate == "" ? "" : stateFilters.toDate,
+            is_export: "0"
+        }
+        if (state.fromDate > state.toDate) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
         }
         setIsLoading(true);
         PostDataAPI("reports/loadReportGrid", params).then((result) => {

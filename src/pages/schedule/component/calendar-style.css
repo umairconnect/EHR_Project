@@ -70,6 +70,15 @@
     height: 12px;
     margin-right: 5px;
 }
+.status-icon2 {
+    float: left;
+    height: 17px;
+    position: relative;
+    left: -2px;
+    top: -2px;
+    width: 17px;
+    margin-right: 5px;
+}
 
 .appointment-type-icon {
     height: 14px;

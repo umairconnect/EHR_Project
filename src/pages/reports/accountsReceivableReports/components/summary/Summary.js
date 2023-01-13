@@ -10,12 +10,13 @@ import { FormBtn, Label, ShadowBox } from "../../../../../components/UiElements/
 import { BoxContainer } from "../../../../dashboard/component/boxContainer/BoxContainer";
 // styles
 import useStyles from "./styles";
-
+import { withSnackbar } from '../../../../../components/Message/Alert';
 import { SelectField } from "../../../../../components/InputField/InputField";
 import { PostDataAPI } from '../../../../../Services/PostDataAPI';
 
-function Summary() {
+function Summary({...props }) {
     const classes = useStyles();
+    const { showMessage } = props;
     const [reRender, setReRender] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     Date.prototype.addDays = function (days) {
@@ -103,7 +104,10 @@ function Summary() {
             Date_From: state.dateFrom,
             Date_To: state.dateTo
         }
-        
+        if (state.dateFrom > state.dateTo) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         setIsLoading(true);
         PostDataAPI("reports/loadReportGrid", params).then((result) => {
             setIsLoading(false);
@@ -266,4 +270,4 @@ function Summary() {
     )
 }
 
-export default Summary
+export default withSnackbar(Summary)

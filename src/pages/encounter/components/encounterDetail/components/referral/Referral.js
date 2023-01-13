@@ -55,7 +55,7 @@ function Referral(props) {
                 (!props.disabled ?
                     <div className={classes.noRecord}>No referral recorded yet</div>
                     :
-                    <div className={classes.noRecord}>No referral recorded yet</div>) :
+                    <div className={classes.DisnoRecord}>No referral recorded yet</div>) :
                 <ul className={classes.treeView}>
                     {referralRowsData.map((item, i) => (
                         /*!props.disabled ? No need to disabled on the basis of encounter signed*/

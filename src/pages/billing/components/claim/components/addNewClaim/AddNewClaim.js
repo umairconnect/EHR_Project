@@ -645,6 +645,11 @@ function AddNewClaim({ handleClose, ...props }) {
                 }
                 setState(result.data);
                 loadPaymentDDL();
+                if (result.data.feeScheduleCode) {
+                    setTimeout(() => {
+                        handleFeeScheduleSelection(result.data.feeScheduleCode)
+                    }, 500)
+                }
             }
             else if (result.data === null) { }
             else
@@ -779,19 +784,6 @@ function AddNewClaim({ handleClose, ...props }) {
             }))
         }
     }
-    //const updateProceduresNDC = () => {
-    //    var lstProcedures = [...state.lstsuperBillProcedures];        
-    //    var params = lstProcedures.filter(p => !p.superbillProcedureId > 0).map(a => a.code);//[state.billingPrfileId.toString(), id];
-    //    //must add billingProfileId at 0 index.
-    //    params.unshift(state.billingProfileId.toString());
-    //    PostDataAPI("billing/profile/getNDCByCPTCode", params).then((result) => {
-    //        if (result.success && result.data && result.data.length > 0) {
-    //            handleProceduresSave(state.lstsuperBillProcedures, result.data);
-    //            //setProceduresNDCList(prevLst => [...prevLst, result.data[0]]);
-    //            //PostCPTChangeCode(id, value, extraParam2);
-    //        }
-    //    });
-    //}
 
     const handleFeeScheduleSelection = (id) => {
         var params = {
@@ -800,66 +792,44 @@ function AddNewClaim({ handleClose, ...props }) {
         };
 
         PostDataAPI("ddl/loadItems", params).then((result) => {
-
             if (result.success && result.data != null) {
-                //setArrfeeScheduler([]);
-
-
-
+                var lstFeeSch = [];
                 result.data.map((item, i) => {
-
-                    arrfeeScheduler.push({
+                    lstFeeSch.push({
                         facilityPrice: item.amount, procedureCode: item.text1,
-                        procedureDescription: item.text2, feeSourceCode: item.text4
+                        procedureDescription: item.text2, feeSourceCode: item.text4, m1: item.text5
                     });
                 })
-
-                updatePricesByFeeSCheduler();
+                setArrfeeScheduler(lstFeeSch);
+                updatePricesByFeeSCheduler(lstFeeSch);
             }
         })
 
     }
 
-    const updatePricesByFeeSCheduler = () => {
+    const updatePricesByFeeSCheduler = (updatedFeeSchedule) => {
         var _proceduresArray = [];
-        let _billedAmount = 0.0;
-
         if (state.lstsuperBillProcedures && state.lstsuperBillProcedures.length > 0) {
             state.lstsuperBillProcedures.map((item, i) => {
 
-                let procObj = searchFeeScheduleCode(item.code, item.description, arrfeeScheduler);
-
+                let procObj = searchFeeScheduleCode(item.code, item.m1, updatedFeeSchedule ? updatedFeeSchedule : arrfeeScheduler);
+                let _billedAmount = 0.0;
+                let _price = 0;
                 if (procObj != undefined) {
                     _billedAmount = parseFloat(isNaN(item.unit) ? 0 : item.unit) * parseFloat(isNaN(procObj.facilityPrice) ? 0 : procObj.facilityPrice);
-                    _proceduresArray.push({
-                        superbillProcedureId: item.superbillProcedureId, claimSuperbillId: item.claimSuperbillId, code: item.code, revCode: item.revCode, revCodeName: item.revCodeName,
-                        description: item.description, m1: item.m1, m2: item.m2, m3: item.m3, m4: item.m4, serviceDateFrom: item.serviceDateFrom,
-                        serviceDateTo: item.serviceDateTo, ndcCode: item.ndcCode, dxPointer1: item.dxPointer1, dxPointer2: item.dxPointer2,
-                        dxPointer3: item.dxPointer3, dxPointer4: item.dxPointer4, unit: isNaN(item.unit) ? 0 : item.unit, price: procObj.facilityPrice, billed: _billedAmount,
-                        patientPaid: item.patientPaid, insBalance: item.insBalance, statusCode: item.statusCode, isDeleted: item.isDeleted,
-                        createdBy: item.createdBy, updatedBy: item.updatedBy, createDate: item.createDate ? item.createDate : new Date(), updateDate: item.updateDate
-                    });
-
-                    _billedAmount = _billedAmount + _billedAmount;
-                    totalPrice = totalPrice + procObj.facilityPrice;
+                    _price = procObj.facilityPrice;
                 }
-                else {
-                    _proceduresArray.push({
-                        superbillProcedureId: item.superbillProcedureId, claimSuperbillId: item.claimSuperbillId, code: item.code, revCode: item.revCode, revCodeName: item.revCodeName,
-                        description: item.description, m1: item.m1, m2: item.m2, m3: item.m3, m4: item.m4, serviceDateFrom: item.serviceDateFrom,
-                        serviceDateTo: item.serviceDateTo, ndcCode: item.ndcCode, dxPointer1: item.dxPointer1, dxPointer2: item.dxPointer2,
-                        dxPointer3: item.dxPointer3, dxPointer4: item.dxPointer4, unit: isNaN(item.unit) ? 0 : item.unit, price: item.price, billed: item.billed,
-                        patientPaid: item.patientPaid, insBalance: item.insBalance, statusCode: item.statusCode, isDeleted: item.isDeleted,
-                        createdBy: item.createdBy, updatedBy: item.updatedBy, createDate: item.createDate ? item.createDate : new Date(), updateDate: item.updateDate
-                    });
-
-                    _billedAmount = _billedAmount + item.billed;
-                    totalPrice = totalPrice + item.price;
-                }
+                _proceduresArray.push({
+                    superbillProcedureId: item.superbillProcedureId, claimSuperbillId: item.claimSuperbillId, code: item.code, revCode: item.revCode, revCodeName: item.revCodeName,
+                    description: item.description, m1: item.m1, m2: item.m2, m3: item.m3, m4: item.m4, serviceDateFrom: item.serviceDateFrom,
+                    serviceDateTo: item.serviceDateTo, ndcCode: item.ndcCode, dxPointer1: item.dxPointer1, dxPointer2: item.dxPointer2,
+                    dxPointer3: item.dxPointer3, dxPointer4: item.dxPointer4, unit: isNaN(item.unit) ? 0 : item.unit, price: _price, billed: _billedAmount,
+                    patientPaid: item.patientPaid, insBalance: item.insBalance, statusCode: item.statusCode, isDeleted: item.isDeleted,
+                    createdBy: item.createdBy, updatedBy: item.updatedBy, createDate: item.createDate ? item.createDate : new Date(), updateDate: item.updateDate
+                });
 
             });
 
-            totalBilled = _billedAmount;
             setState(prevState => ({
                 ...prevState,
                 lstsuperBillProcedures: _proceduresArray
@@ -867,9 +837,10 @@ function AddNewClaim({ handleClose, ...props }) {
         }
 
     }
-    function searchFeeScheduleCode(code, desc, myArray) {
+    function searchFeeScheduleCode(code, m1, myArray) {
         for (var i = 0; i < myArray.length; i++) {
-            if (myArray[i].procedureCode === code && myArray[i].procedureDescription === desc) {
+            var feeSchM1 = myArray[i].m1 ? myArray[i].m1 : "";
+            if (myArray[i].procedureCode === code && feeSchM1 === m1) {
                 return myArray[i];
             }
         }
@@ -1280,7 +1251,7 @@ function AddNewClaim({ handleClose, ...props }) {
             ...prevState,
             lstsuperBillProcedures: state.lstsuperBillProcedures
         }))
-
+        setTimeout(() => { updatePricesByFeeSCheduler(); }, 500);
     }
 
     const handleSearchDiagnosisChange = (name, item) => {
@@ -1851,7 +1822,7 @@ function AddNewClaim({ handleClose, ...props }) {
             errorMessages.moveToElementId = elementId;
         }
     }
-    
+
 
     const ShowActionDialog = (actiontype, title, message, type, OnOkCallback, OnCancellCallback) => {
         setActionDialogProps(prevState => ({
@@ -2479,7 +2450,7 @@ function AddNewClaim({ handleClose, ...props }) {
                                                                             />
                                                                         </span>
                                                                     </Grid>
-                                                                    {errorMessages.errorPos && !state.pos ? (<FormHelperText id ="posError" style={{ color: "red" }} >
+                                                                    {errorMessages.errorPos && !state.pos ? (<FormHelperText id="posError" style={{ color: "red" }} >
                                                                         Please enter POS
                                                                     </FormHelperText>) : ('')}
                                                                 </Grid>
@@ -3356,7 +3327,7 @@ function AddNewClaim({ handleClose, ...props }) {
                                             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
                                                 {isEditable ? state.lstsuperBillDiagnosis == null || state.lstsuperBillDiagnosis.filter(tmprm => tmprm.isDeleted != true).length === 0 ?
                                                     <span className={classes.addDiagnosis} title="Add Diagnosis(s)" onClick={() => setShowHideDiagnosis(!showHideDiagnosis)} >
-                                                        <img  src={AddIcon} alt="Add Diagnosis(s)" />
+                                                        <img src={AddIcon} alt="Add Diagnosis(s)" />
                                                         Add Diagnosis (s)
                                                     </span> :
                                                     <span className={classes.editDiagnosis} title="Edit Diagnosis(s)" onClick={() => setShowHideDiagnosis(!showHideDiagnosis)} >

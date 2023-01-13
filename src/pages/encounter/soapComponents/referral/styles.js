@@ -30,6 +30,17 @@ export default makeStyles(theme => ({
         marginBottom: "0px",
 
     },
+
+    DisnoRecord:{
+        color: "#52575C",
+        fontSize: 12,
+        fontFamily: "Lato",
+        width: "100%",
+        marginTop:"10px",
+        paddingLeft: "20px",
+        marginBottom: "20px",
+    },
+
     addNew: {
         cursor: "pointer",
         color: "#00B2E3",

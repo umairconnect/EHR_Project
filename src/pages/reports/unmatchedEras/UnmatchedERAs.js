@@ -186,7 +186,7 @@ function UnmatchedERAs({ showMessage, ...props }) {
         const onlyPatNames = patientList.filter(d => d.isDeleted == false).map(d => d.patientName).join(",");
         const onlyPayerIds = insuranceList.filter(d => d.isDeleted == false).map(d => d.insuranceId).join(",");
         const onlyPayerNames = insuranceList.filter(d => d.isDeleted == false).map(d => d.insuranceName).join(",");
-        setIsLoading(true);
+       
         var params = {
             reportName: "Unmatched ERAs",
             Trace_No: state.trace_no == undefined ? "" : state.trace_no,
@@ -195,6 +195,11 @@ function UnmatchedERAs({ showMessage, ...props }) {
             Patient: patientList.filter(d => d.isDeleted == false).length == 0 ? "" : onlyPatIds + "||" + onlyPatNames,
             Ins_Code: insuranceList.filter(d => d.isDeleted == false).length == 0 ? "" : onlyPayerIds + "||" + onlyPayerNames
         }
+        if (state.fromDate > state.toDate) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
+        setIsLoading(true);
         PostDataAPI("reports/getReports", params).then((result) => {
             setIsLoading(false);
             if (result.success && result.data != null) {
@@ -213,7 +218,7 @@ function UnmatchedERAs({ showMessage, ...props }) {
         const onlyPatNames = patientList.filter(d => d.isDeleted == false).map(d => d.patientName).join(",");
         const onlyPayerIds = insuranceList.filter(d => d.isDeleted == false).map(d => d.insuranceId).join(",");
         const onlyPayerNames = insuranceList.filter(d => d.isDeleted == false).map(d => d.insuranceName).join(",");
-        setIsLoading(true);
+       
         var params = {
             reportName: "Unmatched ERAs",
             Trace_No: state.trace_no == undefined ? "" : state.trace_no,
@@ -222,6 +227,11 @@ function UnmatchedERAs({ showMessage, ...props }) {
             Patient: patientList.filter(d => d.isDeleted == false).length == 0 ? "" : onlyPatIds + "||" + onlyPatNames,
             Ins_Code: insuranceList.filter(d => d.isDeleted == false).length == 0 ? "" : onlyPayerIds + "||" + onlyPayerNames
         }
+        if (state.fromDate > state.toDate) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
+        setIsLoading(true);
         PostDataAPI("reports/loadReportGrid", params).then((result) => {
             setIsLoading(false);
             if (result.success && result.data != null) {

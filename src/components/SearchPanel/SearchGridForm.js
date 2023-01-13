@@ -77,7 +77,6 @@ export default function SearchGridForm({ isDeleted, defaultvalues, searchPanelPa
     }
 
     const handleCellPhoneChange = e => {
-        debugger;
         if (e.nativeEvent.data != "e") {
             
             if (e.nativeEvent.data != null || e.target.value != "") {

@@ -411,7 +411,12 @@ function TemplateAccordion({ sectionCode, isUpdate, ...props }) {
                                       }
                                     >
                                       <span className={classes.circle}></span>{" "}
-                                      <span> {subItem.templateText}</span>
+                                            <span
+                                                dangerouslySetInnerHTML={{
+                                                    __html: subItem.templateText,
+                                                }}
+                                                onClick={(e) => e.preventDefault()}
+                                            ></span>
                                     </span>
                                   </>
                                 ))}

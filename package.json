@@ -1,6 +1,6 @@
 {
   "name": "mcr-health",
-  "version": "6.0.0.0001",
+  "version": "7.1.0.0002",
   "private": true,
   "homepage": "./",
   "resolutions": {

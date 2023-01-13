@@ -205,7 +205,7 @@ function Appointments(props) {
 
                         item.deductables = "$ 0"
                         item.action = item.action =
-                            isEditable ? <Button variant="outlined" className={classes.startEncounterBtn}>
+                            props.isEditable ? <Button variant="outlined" className={classes.startEncounterBtn}>
                                 <Link to={{
                                     pathname: '/app/encounter',
                                     search: '?id=' + item.userLocationID + '/' + item.patientID + '/' + item.patientAppointmentID,
@@ -232,11 +232,11 @@ function Appointments(props) {
                                             userLocationID: item.userLocationID
                                         })
 
-                                    }}> "View Encounter"
+                                    }}> {"View Encounter"}
 
                                     </Link>
                                 </Button > :
-                                <Button variant="outlined" disabled={true} className={classes.startEncounterBtnDisable} >Start Encounter</Button>
+                                <Button variant="outlined" disabled={true} className={classes.startEncounterBtnDisable} >{"Start Encounter"}</Button>
                         //item.action = <Button variant="outlined" className={classes.startEncounterBtn}>
                         //    <Link to={{
                         //        pathname: '/app/encounter',
@@ -274,6 +274,7 @@ function Appointments(props) {
     }
 
     useEffect(() => {
+        debugger;
         console.log(props.isEditable);
         console.log("patient screen appointment list");
         saveAuditLogInfo()

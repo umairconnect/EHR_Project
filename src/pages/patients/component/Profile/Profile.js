@@ -84,15 +84,12 @@ function Profile({ onVitalsClick, onNewAppointmentClick, onNewReferralClick, onF
         PostDataAPI("patient/getPatientSummaryInfo", params).then((result) => {
             if (result.success && result.data != null) {
                 // Set data Here
-                
                 setValues(result.data);
                 if (props.getPatientName) {
                     props.getPatientName(result.data.name)
                 }
-
             }
             else {
-
                 showMessage("Error", result.message, "error", 3000);
             }
         })
@@ -481,7 +478,8 @@ function Profile({ onVitalsClick, onNewAppointmentClick, onNewReferralClick, onF
                 </DialogActions>
                 {/* </Scrollbars> */}
             </Dialog>
-            <PatientPortalAccess dialogState={patientPortalDialogState} handleClose={patientportalclose} patientId={dataId} />
+            {patientPortalDialogState ? <PatientPortalAccess dialogState={patientPortalDialogState} handleClose={patientportalclose} patientId={dataId} />:""}
+            
 
         </>
     );

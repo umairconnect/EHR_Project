@@ -187,7 +187,7 @@ function Documents(props) {
                     <div className={classes.allTasksInnerCard}>
                         <div className={classes.allTasksFilterArea}>
                             <Grid container lg={12} spacing={1} direction="row" justify="center">
-                                <FormGroupTitle>Document To Sign</FormGroupTitle>
+                                <FormGroupTitle>Documents To Sign</FormGroupTitle>
                             </Grid>
                         </div>
 

@@ -37,29 +37,29 @@ import LeftArrow from "../../images/icons/leftArrow.png";
 import RightArrow from "../../images/icons/rightArrow.png";
 
 import AIcon from "../../images/icons/A.png";
-import AIconBlue from "../../images/icons/A-Blue.png";
+import AIconBlue from "../../images/icons/arrived.png";
 import CIcon from "../../images/icons/C.png";
-import CIconBlue from "../../images/icons/C-Blue.png";
+import CIconBlue from "../../images/icons/confirmed.png";
 import RIcon from "../../images/icons/R.png";
-import RIconBlue from "../../images/icons/R-Blue.png";
+import RIconBlue from "../../images/icons/re-scheduled.png";
 import XIcon from "../../images/icons/X.png";
-import XIconBlue from "../../images/icons/X-Blue.png";
+import XIconBlue from "../../images/icons/canceled.png";
 import CIIcon from "../../images/icons/CI.png";
-import CIIconBlue from "../../images/icons/CI-Blue.png";
+import CIIconBlue from "../../images/icons/checked-in.png";
 import CIOIcon from "../../images/icons/CIO.png";
-import CIOIconBlue from "../../images/icons/CIO-Blue.png";
+import CIOIconBlue from "../../images/icons/checked-in-online.png";
 import TickIcon from "../../images/icons/Tick.png";
-import TickIconBlue from "../../images/icons/Tick-Blue.png";
+import TickIconBlue from "../../images/icons/completed.png";
 import IRIcon from "../../images/icons/IR.png";
-import IRIconBlue from "../../images/icons/IR-Blue.png";
+import IRIconBlue from "../../images/icons/in-room.png";
 import ISIcon from "../../images/icons/IS.png";
-import ISIconBlue from "../../images/icons/IS-Blue.png";
+import ISIconBlue from "../../images/icons/in-session.png";
 import NCIcon from "../../images/icons/NC.png";
-import NCIconBlue from "../../images/icons/NC-Blue.png";
+import NCIconBlue from "../../images/icons/not-confirmed.png";
 import NSIcon from "../../images/icons/NS.png";
-import NSIconBlue from "../../images/icons/NS-Blue.png";
+import NSIconBlue from "../../images/icons/no-show.png";
 import OIcon from "../../images/icons/O.png";
-import OIconBlue from "../../images/icons/O-Blue.png";
+import OIconBlue from "../../images/icons/orphan.png";
 
 import WalkIcon from "../../images/icons/WalkIn.png";
 import WalkIconBlue from "../../images/icons/WalkIn-Blue.png";
@@ -1012,7 +1012,7 @@ function Schedule(props) {
                         case 'Arrived':
                             if (event.bgColor == "White" || event.bgColor == "none") {
                                 return (
-                                    <img className="status-icon" src={AIconBlue} alt="" />
+                                    <img className="status-icon2" src={AIconBlue} alt="" />
                                 );
                             } else {
                                 return (
@@ -1022,7 +1022,7 @@ function Schedule(props) {
                         case 'Cancelled':
                             if (event.bgColor == "White" || event.bgColor == "none") {
                                 return (
-                                    <img className="status-icon" src={XIconBlue} alt="" />
+                                    <img className="status-icon2" src={XIconBlue} alt="" />
                                 );
                             }
                             else {
@@ -1033,7 +1033,7 @@ function Schedule(props) {
                         case 'Checked-in':
                             if (event.bgColor == "White" || event.bgColor == "none") {
                                 return (
-                                    <img className="status-icon" src={CIIconBlue} alt="" />
+                                    <img className="status-icon2" src={CIIconBlue} alt="" />
                                 );
                             }
                             else {
@@ -1045,7 +1045,7 @@ function Schedule(props) {
                         case 'Checked-in Online':
                             if (event.bgColor == "White" || event.bgColor == "none") {
                                 return (
-                                    <img className="status-icon" src={CIOIconBlue} alt="" />
+                                    <img className="status-icon2" src={CIOIconBlue} alt="" />
                                 );
                             }
                             else {
@@ -1056,7 +1056,7 @@ function Schedule(props) {
                         case 'Confirmed':
                             if (event.bgColor == "White" || event.bgColor == "none") {
                                 return (
-                                    <img className="status-icon" src={CIconBlue} alt="" />
+                                    <img className="status-icon2" src={CIconBlue} alt="" />
                                 );
                             }
                             else {
@@ -1068,7 +1068,7 @@ function Schedule(props) {
 
                             if (event.bgColor == "White" || event.bgColor == "none") {
                                 return (
-                                    <img className="status-icon" src={TickIconBlue} alt="" />
+                                    <img className="status-icon2" src={TickIconBlue} alt="" />
                                 );
                             }
                             else {
@@ -1080,7 +1080,7 @@ function Schedule(props) {
 
                             if (event.bgColor == "White" || event.bgColor == "none") {
                                 return (
-                                    <img className="status-icon" src={IRIconBlue} alt="" />
+                                    <img className="status-icon2" src={IRIconBlue} alt="" />
                                 );
                             }
                             else {
@@ -1092,7 +1092,7 @@ function Schedule(props) {
 
                             if (event.bgColor == "White" || event.bgColor == "none") {
                                 return (
-                                    <img className="status-icon" src={ISIconBlue} alt="" />
+                                    <img className="status-icon2" src={ISIconBlue} alt="" />
                                 );
                             }
                             else {
@@ -1104,7 +1104,7 @@ function Schedule(props) {
 
                             if (event.bgColor == "White" || event.bgColor == "none") {
                                 return (
-                                    <img className="status-icon" src={NCIconBlue} alt="" />
+                                    <img className="status-icon2" src={NCIconBlue} alt="" />
                                 );
                             }
                             else {
@@ -1116,7 +1116,7 @@ function Schedule(props) {
 
                             if (event.bgColor == "White" || event.bgColor == "none") {
                                 return (
-                                    <img className="status-icon" src={NSIconBlue} alt="" />
+                                    <img className="status-icon2" src={NSIconBlue} alt="" />
                                 );
                             }
                             else {
@@ -1129,7 +1129,7 @@ function Schedule(props) {
 
                             if (event.bgColor == "White" || event.bgColor == "none") {
                                 return (
-                                    <img className="status-icon" src={OIconBlue} alt="" />
+                                    <img className="status-icon2" src={OIconBlue} alt="" />
                                 );
                             }
                             else {
@@ -1142,7 +1142,7 @@ function Schedule(props) {
 
                             if (event.bgColor == "White" || event.bgColor == "none") {
                                 return (
-                                    <img className="status-icon" src={RIconBlue} alt="" />
+                                    <img className="status-icon2" src={RIconBlue} alt="" />
                                 )
                             }
                             else {
@@ -1156,28 +1156,16 @@ function Schedule(props) {
                 {(() => {
                     switch (event.appointmentTypeCode) {
                         case 'Walk-in':
-                            if (event.bgColor == "White" || event.bgColor == "none") {
-                                return (
-                                    <img className="appointment-type-icon" src={WalkIconBlue} alt="Walk In" />
-                                );
-                            }
-                            else {
+                           
                                 return (
                                     <img className="appointment-type-icon" src={WalkIcon} alt="Walk In" />
                                 );
-                            }
+                            
                         case 'Video-Visit':
 
-                            if (event.bgColor == "White" || event.bgColor == "none") {
-                                return (
-                                    <img className="appointment-type-icon" src={VideoIconBlue} alt="Video Visit" />
-                                );
-                            }
-                            else {
                                 return (
                                     <img className="appointment-type-icon" src={VideoIcon} alt="Video Visit" />
                                 );
-                            }
                     }
                 })()}
             </span>

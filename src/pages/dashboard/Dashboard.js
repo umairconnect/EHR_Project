@@ -37,9 +37,10 @@ export default function Dashboard(props) {
     const loadTodayAppointments = () => {
         let params = {
             "loggedinUserId": userInfo.userID + "",
-            "date": ''
+            "date": new Date()
         }
         PostDataAPI("appointment/loadPatientTodayAppointments", params).then((result) => {
+            debugger;
             if (result.success) {
                 setTodayAppointments(result.data);
                 setIsUpdate(true)
@@ -53,7 +54,7 @@ export default function Dashboard(props) {
     const loadUpcommingAppointment = () => {
         let params = {
             "loggedinUserId": userInfo.userID + "",
-            "date": ''
+            "date": new Date()
         }
         PostDataAPI("appointment/loadPatientUpcommingAppointment", params).then((result) => {
             if (result.success && result.data != null) {

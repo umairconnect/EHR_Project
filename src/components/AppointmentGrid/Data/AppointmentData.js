@@ -132,11 +132,11 @@
             className: "width100",
             // width: 320
         },
-        {
-            title: 'Confirmation',
-            dataIndex: 'confirmation',
-            className: "width180",
-        },
+        //{
+        //    title: 'Confirmation',
+        //    dataIndex: 'confirmation',
+        //    className: "width180",
+        //},
         {
             title: 'Actions',
             dataIndex: 'action',

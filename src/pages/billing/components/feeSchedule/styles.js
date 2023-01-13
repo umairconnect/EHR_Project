@@ -54,6 +54,7 @@ export default makeStyles((theme) => ({
         textTransform: "none",
         padding: "0 12px",
         position: "absolute",
+        top: '3px',
         // top: "2px",
         '&:hover': {
             // backgroundColor: "#596270",

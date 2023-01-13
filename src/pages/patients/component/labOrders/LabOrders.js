@@ -378,7 +378,6 @@ function LabOrders(props) {
     useEffect(() => {
         let isEdit = props.isImaginOrder == true ? IsEditable("imaging") : IsEditable("lab");
         console.log(userInfo);
-        debugger;
         saveAuditLogInfo();
         loadData();
     }, [update])

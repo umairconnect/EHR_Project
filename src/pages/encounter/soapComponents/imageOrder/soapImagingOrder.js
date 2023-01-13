@@ -99,7 +99,7 @@ function LabImageOrder({ disabled, patientId, ...props }) {
                         </ul>
 
                     </>
-                )) : <div className={classes.noRecord}>Patient has no imaging order</div>}
+                )) : <div className={disabled ?classes.DisnoRecord : classes.noRecord}>Patient has no imaging order</div>}
 
 
             </div>

@@ -2,6 +2,16 @@
   color: #00B4E5 !important;
 }
 
+.MuiCheckbox-colorPrimary.Mui-disabled
+ {
+  color: rgba(0, 0, 0, 0.26) !important;
+ }
+
+ input:disabled {
+
+  background-color: #f3f3f3 !important;
+  color: #4A4A4A !important;
+ }
 
 /* latin-ext */
 @font-face {

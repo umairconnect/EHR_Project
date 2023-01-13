@@ -10,7 +10,7 @@ import { FormBtn, Label, LinkS, ShadowBox } from "../../../../../components/UiEl
 import SearchList from "../../../../../components/SearchList/SearchList";
 import { data as gridCnfg } from '../../../../../components/SearchGrid/component/setupData';
 import { formatCurrency, formatDate } from '../../../../../components/Common/Extensions';
-
+import { withSnackbar } from '../../../../../components/Message/Alert';
 import { SelectField } from "../../../../../components/InputField/InputField";
 // styles
 import "../../../../../components/antd.css";
@@ -148,6 +148,10 @@ function Insurance({ showMessage,pageChange, ...props }) {
             Date_From: formatDate(state.dateFrom),
             Date_To: formatDate(state.dateTo)
         }
+        if (state.dateFrom > state.dateTo) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
+        }
         setIsLoading(true);
         PostDataAPI("reports/getReports", params).then((result) => {
             setIsLoading(false);
@@ -172,6 +176,10 @@ function Insurance({ showMessage,pageChange, ...props }) {
             days_range: state.daysRange,
             Date_From: state.dateFrom,
             Date_To: state.dateTo
+        }
+        if (state.dateFrom > state.dateTo) {
+            showMessage("Error", "From date cannot be greater than to date", "error", 3000);
+            return;
         }
         setIsLoading(true);
         PostDataAPI("reports/loadReportGrid", params).then((result) => {
@@ -546,5 +554,4 @@ function Insurance({ showMessage,pageChange, ...props }) {
         </div >
     )
 }
-
-export default Insurance
+export default withSnackbar(Insurance)

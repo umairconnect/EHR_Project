@@ -167,7 +167,6 @@ function AddHealthConcern({ closeDirectivesDialog, patientId, healthConcernId, h
         }
     }
     useEffect(() => {
-        debugger;
         console.log(props.isEditable)
         if (healthConcernId > 0)
             loadData();

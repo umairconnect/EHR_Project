@@ -521,9 +521,9 @@ function TemplateAccordion({ sectionCode, isUpdate, ...props }) {
                                                                         item.subItemDTOList.map((subItem, ind) => (
                                                                             <>
                                                                                 <span className={classes.accordionDetails} onClick={() => props.handleSelectedSubItem(subItem)}>
-                                                                                    <span className={classes.circle}></span>  <span> {subItem.templateText}</span>
+                                                                                    <span className={classes.circle}></span>
+                                                                                    <span dangerouslySetInnerHTML={{ __html: subItem.templateText }} onClick={(e) => e.preventDefault()}></span>
                                                                                 </span>
-
                                                                             </>
                                                                         ))
                                                                     }

@@ -80,5 +80,6 @@ export default makeStyles(theme => ({
     color: '#00B2E3 !important',
     margin: '10px 0px',
     display: 'block',
+    textDecoration: 'none',
   }
 }));

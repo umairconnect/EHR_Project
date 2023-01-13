@@ -23,7 +23,11 @@ function ObjectiveNotes({ isExpand, patientId, patientAppointmentId, disabled, i
     const [editorValue, setEditorValue] = useState(RichTextEditor.createValueFromString("", 'html'));
     const [encounterId, setEncounterId] = useState(props.encounterId);
     const [isDataExist, setIsDataExist] = useState(false);
-    const [subComponentVisbility, setSubComponentVisbility] = useState({ objectiveNotes: false, observation: false, assessment: false })
+    const [subComponentVisbility, setSubComponentVisbility] = useState({
+        objectiveNotes: false, functionalStatus: false,
+        cognitiveStatus:false,
+        assessment: false
+    })
     const [objectiveState, setObjectiveState] = useState({
         encounterId: 0, objective: ""
     });
@@ -86,10 +90,12 @@ function ObjectiveNotes({ isExpand, patientId, patientAppointmentId, disabled, i
     useEffect(() => {
         if (props.encounterId) {
             let objectiveNotes = props.subComponent.some(item => item.componentCode == "objective_notes_soap" && item.isActive == true);
-            let observations = props.subComponent.some(item => item.componentCode == "observations_soap" && item.isActive == true);
+            let functionsStatus = props.subComponent.some(item => item.componentCode == "objective_functional_soap" && item.isActive == true);
+            let cognitiveStatus = props.subComponent.some(item => item.componentCode == "objective_cognitive_soap" && item.isActive == true);
             let assessment = props.subComponent.some(item => item.componentCode == "objective_assessment_soap" && item.isActive == true);
             subComponentVisbility.objectiveNotes = objectiveNotes;
-            subComponentVisbility.observation = observations;
+            subComponentVisbility.functionalStatus = functionsStatus;
+            subComponentVisbility.cognitiveStatus = cognitiveStatus;
             subComponentVisbility.assessment = assessment;
             initialization();
         }
@@ -193,12 +199,15 @@ function ObjectiveNotes({ isExpand, patientId, patientAppointmentId, disabled, i
 
                         </Grid>
                     </AccordionDetails> : ""}
-                    {subComponentVisbility.observation ? <> <AccordionDetails>
-                        <div className={classes.functionalStatusContain}>
-                            <FunctionalStatus disabled={disabled} encounterId={encounterId} inlineBlock={'inline-block'} textAlign={'right'}></FunctionalStatus>
-                        </div>
-                    </AccordionDetails>
-
+                    {subComponentVisbility.functionalStatus ?
+                        <>
+                            <AccordionDetails>
+                            <div className={classes.functionalStatusContain}>
+                                <FunctionalStatus disabled={disabled} encounterId={encounterId} inlineBlock={'inline-block'} textAlign={'right'}></FunctionalStatus>
+                            </div>
+                            </AccordionDetails>
+                        </> : ''}
+                    {subComponentVisbility.cognitiveStatus ? <>
                         <AccordionDetails>
                             <div className={classes.CognitiveStatusContain}>
                                 <CognitiveStatus disabled={disabled} encounterId={encounterId}></CognitiveStatus>

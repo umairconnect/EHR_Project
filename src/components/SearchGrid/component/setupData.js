@@ -2106,11 +2106,7 @@ export const data = {
             title: 'Medicare',
             dataIndex: 'strMedicareFee',
             className: "width120 textRight",
-            sorter: (a, b) => {
-                a = a.strMedicareFee != null ? a.strMedicareFee.toString() : "";
-                b = b.strMedicareFee != null ? b.strMedicareFee.toString() : "";
-                return a.localeCompare(b);
-            },
+           
         },
         {
             title: 'Action',

@@ -454,7 +454,6 @@ function NewReferralDialog({ dialogOpenClose, handleClose, ...props }) {
                     formData.append(key, state[key]);
 
             }
-            debugger;
             var refferalDocuments = "";
             var isReferralDocuments = "";
             for (var i = 0; i < attachment.length; i++) {

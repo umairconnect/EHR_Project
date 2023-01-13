@@ -269,4 +269,15 @@ export default makeStyles(theme => ({
             color: 'white',
         },
     },
+    tempDialogPaper: {
+        width: "30%",
+        maxWidth: '30%',
+        padding: "22px 20px"
+    },
+    Templatecontent: {
+        flex: "1 1 auto",
+        marginBottom: 0,
+        padding: "10px",
+        overflow: "initial !important",
+    },
 }))

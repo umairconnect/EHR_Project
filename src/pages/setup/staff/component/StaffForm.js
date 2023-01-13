@@ -617,10 +617,6 @@ function StaffForm(props) {
         }
     }
 
-    function clear() {
-        setStaffFormState();
-    }
-
     function BackToStaff() {
         document.getElementById("btnBackToStaff").click();
     }
@@ -885,19 +881,22 @@ function StaffForm(props) {
     function DeleteStaff() {
         state.allProviderIds = [];
         setIsDeleteLoading(true);
+        if (state.licenseExpiry == '') {
+            state.licenseExpiry = null;
+        }
         PostDataAPI("user/deleteStaff", state, true).then((result) => {
-            setIsDeleteLoading(false);
 
             if (result.success == true) {
                 setErrorMessages([]);
-
                 showMessage("Success", "Record deleted successfully.", "success", 2000);
                 setTimeout(() => {
+                    setIsDeleteLoading(false);
                     BackToStaff();
                 }, 2000);
 
                 setDataId(0);
             } else {
+                setIsDeleteLoading(false);
                 showMessage("Error", result.message, "error", 3000);
             }
         });
@@ -1404,7 +1403,7 @@ function StaffForm(props) {
                         {/* Press Ok to continue and Cancel to stay on the screen. */}
                         <Grid item xs={12} sm={6} md={6} lg={4} container direction="row">
                             <FooterBtn className={classes.footerBtn}>
-                                {isSaveLoading ? (
+                                {isSaveLoading || isDeleteLoading ? (
                                     <FormBtn id="loadingSave" size="medium">
                                         Save
                                     </FormBtn>
@@ -1420,7 +1419,7 @@ function StaffForm(props) {
                                 )}
 
                                 {dataId != 0 ? (
-                                    isDeleteLoading ? (
+                                    isDeleteLoading || isSaveLoading ? (
                                         <FormBtn id="loadingDelete" size="medium">
                                             Delete
                                         </FormBtn>

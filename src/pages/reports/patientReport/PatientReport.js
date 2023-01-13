@@ -42,8 +42,12 @@ import SearchList from "../../../components/SearchList/SearchList";
 function PatientReports({ showMessage, ...props }) {
     const classes = useStyles();
     const [isEditable, setIsEditable] = useState(IsEditable("Patients"));
+    Date.prototype.addDays = function (days) {
+        this.setDate(this.getDate() + parseInt(days));
+        return this;
+    };
     const [state, setState] = useState({
-        appointmentFrom: '', appointmentTo: '', ageFrom: '', ageTo: '', genderCode: '', raceCode: '', ethnicityCode: '',
+        appointmentFrom: addDays(new Date(), -30).toString(), appointmentTo: addDays(new Date(), 0).toString(), ageFrom: '', ageTo: '', genderCode: '', raceCode: '', ethnicityCode: '',
         langCode: '', demRecordedFrom: '', demRecordedTo: '', prefferedComs: '', prefferedComsFromUpdated: '', prefferedComsToUpdated: '',
         smokingStatus: '', patientStatusCode: "", patientStatusName: '', dynamicParams: '', medicationFromDate: '',
         medicationFromTo: '',
@@ -56,6 +60,10 @@ function PatientReports({ showMessage, ...props }) {
         labResultPerformedFromDate: '',
         labResultPerformedToDate: '',
     });
+    function addDays(date, days) {
+        date.addDays(days);
+        return date.toISOString().split('T')[0];
+    }
     const [raceCodes, setRaceCodes] = useState([]);
     const [ethnicityCodes, setEthnicityCodes] = useState([]);
     const [preferredLanguage, setPreferredLanguage] = useState([]);
@@ -480,8 +488,6 @@ function PatientReports({ showMessage, ...props }) {
             + ",Performed From Date: " + labResultPerformedFromDate
             + ",Performed To Date: " + labResultPerformedToDate
             + ", Lab Results: " + getSelectedLabResults();
-
-
         console.log(dynFilter);
         var params = {
             reportName: "Patient Demographics Report",
@@ -504,17 +510,17 @@ function PatientReports({ showMessage, ...props }) {
             Allergies: allergyFilters,
             Lab_Results: labResultsFilters
         }
-        setIsLoading(true);
-        PostDataAPI("reports/getReports", params).then((result) => {
-            setIsLoading(false);
-            if (result.success && result.data != null) {
-                window.location.assign("." + result.data);
-
-            } else {
-                showMessage("Error", result.message, "error", 3000);
-            }
-        });
-
+        if (validateFilters()) {
+            setIsLoading(true);
+            PostDataAPI("reports/getReports", params).then((result) => {
+                setIsLoading(false);
+                if (result.success && result.data != null) {
+                    window.location.assign("." + result.data);
+                } else {
+                    showMessage("Error", result.message, "error", 3000);
+                }
+            });
+        }
     }
 
     function loadPatientDemographics() {
@@ -541,18 +547,53 @@ function PatientReports({ showMessage, ...props }) {
             Patient_Status: state.patientStatusCode ? state.patientStatusCode + "||" + state.patientStatusName : '',
             Additional_Filters: dynFilter
         }
+        if (validateFilters()) {
+            setIsLoading(true);
+            PostDataAPI("reports/loadReportGrid", params).then((result) => {
+                setIsLoading(false);
+                if (result.success && result.data != null) {
+                    setRowsData(
+                        result.data.map((item, i) => {
+                            item.column2 = <LinkS onClick={() => handleOpenDemographics(item.column12)} style={{ textDecoration: "underline", marginLeft: "auto" }}>{item.column2}</LinkS>
+                            return { ...item }
+                        }));
+                }
+            });
+        }
+        
+    }
 
-        setIsLoading(true);
-        PostDataAPI("reports/loadReportGrid", params).then((result) => {
-            setIsLoading(false);
-            if (result.success && result.data != null) {
-                setRowsData(
-                    result.data.map((item, i) => {
-                        item.column2 = <LinkS onClick={() => handleOpenDemographics(item.column12)} style={{ textDecoration: "underline", marginLeft: "auto" }}>{item.column2}</LinkS>
-                        return { ...item }
-                    }));
-            }
-        });
+    function validateFilters() {
+        let isValidFilter = true;
+        if (state.appointmentFrom > state.appointmentTo) {
+            showMessage("Error", "Appointment From date cannot be greater than to date", "error", 3000);
+            isValidFilter = false;
+        }
+        if (state.demRecordedFrom > state.demRecordedTo) {
+            showMessage("Error", "Recorded From date cannot be greater than to date", "error", 3000);
+            isValidFilter = false;
+        }
+        if (state.medicationFromDate > state.medicationFromTo) {
+            showMessage("Error", "Medication From date cannot be greater than to date", "error", 3000);
+            isValidFilter = false;
+        }
+        if (state.diagnosisFromDate > state.diagnosisFromTo) {
+            showMessage("Error", "Diagnosis From date cannot be greater than to date", "error", 3000);
+            isValidFilter = false;
+        }
+        if (state.allergyFromDate > state.allergyFromTo) {
+            showMessage("Error", "Allergy From date cannot be greater than to date", "error", 3000);
+            isValidFilter = false;
+        }
+        if (state.labResultRecordedFromDate > state.labResultRecordedFromTo) {
+            showMessage("Error", "Lab Result Recorded From date cannot be greater than to date", "error", 3000);
+            isValidFilter = false;
+        }
+        if (state.labResultPerformedFromDate > state.labResultPerformedToDate) {
+            showMessage("Error", "Lab Result Performed From date cannot be greater than to date", "error", 3000);
+            isValidFilter = false;
+        }
+        return isValidFilter
     }
 
     function getMedicationFilter() {
@@ -657,8 +698,8 @@ function PatientReports({ showMessage, ...props }) {
     }
 
     function clearFilter() {
-        state.appointmentFrom = '';
-        state.appointmentTo = '';
+        state.appointmentFrom = addDays(new Date(), -30).toString();
+        state.appointmentTo = addDays(new Date(), 0).toString();
         state.ageFrom = '';
         state.ageTo = '';
         state.genderCode = '';

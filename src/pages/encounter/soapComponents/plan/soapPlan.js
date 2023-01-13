@@ -20,6 +20,7 @@ import LabImageOrder from "./../imageOrder/soapImagingOrder";
 function SoapPlan({ isExpand, patientId, patientAppointmentId, disabled, isUpdate, ...props }) {
     var classes = useStyles();
     const MAX_EDITOR_LENGTH = 2000;
+    const [isEditable] = useState(props.isEditable)
     const [errorMessages, setErrorMessages] = useState({ errorEditorMaxValue: false })
     const [editorValue, setEditorValue] = useState(RichTextEditor.createValueFromString("", 'html'));
     const [encounterId, setEncounterId] = useState(props.encounterId);
@@ -201,7 +202,7 @@ function SoapPlan({ isExpand, patientId, patientAppointmentId, disabled, isUpdat
 
                     {subComponentVisbility.planProcedure ? <AccordionDetails>
                         <div className={classes.mediContain}>
-                            <Procedure disabled={disabled} encounterId={encounterId} patientId={patientId} />
+                            <Procedure disabled={disabled} encounterId={encounterId} patientId={patientId} isEditable={isEditable} />
                         </div>
                     </AccordionDetails> : ""}
 
@@ -209,7 +210,7 @@ function SoapPlan({ isExpand, patientId, patientAppointmentId, disabled, isUpdat
 
                     {subComponentVisbility.planMedication ? <AccordionDetails>
                         <div className={classes.mediContain}>
-                            <MedicationEnc disabled={disabled} patientId={patientId} patientAppointmentId={patientAppointmentId} encounterId={encounterId} />
+                            <MedicationEnc disabled={disabled} patientId={patientId} patientAppointmentId={patientAppointmentId} encounterId={encounterId} isEditable={isEditable} isEncounterSpecific={true} />
                         </div>
                     </AccordionDetails> : ""}
                     <AccordionDetails>

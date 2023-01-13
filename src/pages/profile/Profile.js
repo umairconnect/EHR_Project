@@ -535,7 +535,7 @@ function Profile(props) {
                                         id="ActivateEmergencyAccess"
                                         onChange={handleChecked}
                                         checked={state.currentStatus}
-                                        label={state.currentStatus ? "De-Activate Emergency Access" : "Activate Emergency Access"}
+                                        label={state.currentStatus ? "Deactivate Emergency Access" : "Activate Emergency Access"}
                                     />:null}
                                     
                                 </Grid>

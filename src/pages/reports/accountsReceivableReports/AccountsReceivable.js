@@ -159,5 +159,4 @@ function AccountsReceivable() {
         </>
     )
 }
-
 export default AccountsReceivable
