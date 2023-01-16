@@ -83,6 +83,7 @@ const OrderDelegations = lazy(() => import('../../pages/setup/orderDelegations/O
 const BillingSummary = lazy(() => import('../../pages/reports/billingSummary/BillingSummary'));
 const Procedures = lazy(() => import('../../pages/reports/procedures/Procedures'));
 const ProcedureDetails = lazy(() => import('../../pages/reports/procedures/components/procedureDetails/ProcedureDetails'));
+const Reports = lazy(() => import('../../pages/reports/reports'));
 const RemittanceReports = lazy(() => import('../../pages/reports/remittanceReports/RemittanceReports'));
 const RemittanceReportsDetails = lazy(() => import('../../pages/reports/remittanceReports/components/remittanceReportsDetails/RemittanceReportsDetails'));
 const UnderpaidItemReports = lazy(() => import('../../pages/reports/underpaidItemReports/UnderpaidItemReports'));
@@ -202,6 +203,7 @@ function Layout(props) {
                             <Route path="/app/formslist" component={FormsList} />
                             <Route path="/app/ecqmdashboard" component={ECQMDashboard} />
                             <Route path="/app/chartnotestype" component={ChartNotesType} />
+                            <Route path="/app/Reports" component={Reports} />
                         </Switch>
                     </Suspense>
                 </div>

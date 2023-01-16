@@ -93,7 +93,6 @@ function SoapReferral({ isExpand, ...props }) {
                                     <div className={classes.DisnoRecord}>No referral recorded yet</div>) :
                                 <ul className={classes.treeView}>
                                     {referralRowsData.map((item, i) => (
-
                                         (<li key={i}>
                                             <div className={classes.treeContent}>
                                                 <div className={classes.DistreeIcon}><ChevronRightIcon /></div>
@@ -102,7 +101,6 @@ function SoapReferral({ isExpand, ...props }) {
                                                         <> | <a target={"_blank"} href={item.linkPath}> className={props.disabled ? classes.disLinkColor:classes.LinkColor} {item.link.length > 20 ? item.link.substring(0, 17) + '...' : item.link} </a>
                                                         </> : ''
                                                     } */}
-
                                                 </div>
 
                                             </div>

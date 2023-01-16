@@ -3439,7 +3439,7 @@ export const data = {
         {
             title: 'Referral to',
             dataIndex: 'refProviderName',
-            className: "width220",
+            className: "width120",
             sorter: (a, b) => {
                 a = a.refProviderName != null ? a.refProviderName.toString() : "";
                 b = b.refProviderName != null ? b.refProviderName.toString() : "";
@@ -3449,7 +3449,7 @@ export const data = {
         {
             title: 'Ordering Provider',
             dataIndex: 'orderingProviderName',
-            className: "width220",
+            className: "width120",
             sorter: (a, b) => {
                 a = a.orderingProviderName != null ? a.orderingProviderName.toString() : "";
                 b = b.orderingProviderName != null ? b.orderingProviderName.toString() : "";
@@ -3460,7 +3460,7 @@ export const data = {
         {
             title: 'Referral For',
             dataIndex: 'refferalFor',
-            className: "width220",
+            className: "width120",
             sorter: (a, b) => {
                 a = a.refferalFor != null ? a.refferalFor.toString() : "";
                 b = b.refferalFor != null ? b.refferalFor.toString() : "";
@@ -3471,7 +3471,7 @@ export const data = {
         {
             title: 'Date / Time',
             dataIndex: 'createDate',
-            className: "width150",
+            className: "width120",
             render: function (text) { return formatDateTime(text) },
             sorter: (a, b) => {
                 a = a.createDate != null ? a.createDate.toString() : "";
@@ -3484,7 +3484,7 @@ export const data = {
             title: 'Attachment',
             dataIndex: 'link',
             align: "center",
-            className: "width150 action",
+            className: "width220",
             sorter: (a, b) => {
                 a = a.link != null ? a.link.toString() : "";
                 b = b.link != null ? b.link.toString() : "";

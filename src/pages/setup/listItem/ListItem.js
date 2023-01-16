@@ -47,7 +47,6 @@ function ListItem(props) {
     const [dataId, setDataId] = useState(0);
 
     const handleSearchListChange = (name, item) => {
-
         const { id, value } = item;
 
         setState(prevState => ({
@@ -72,10 +71,7 @@ function ListItem(props) {
         } else {
             loadData(id, item.extraParam1);
         }
-
-
     }
-
 
     const addNewListItem = () => {
         setDataId(0);
@@ -86,7 +82,6 @@ function ListItem(props) {
     const editListItem = (item) => {
         setDataId(item.listTypeId);
         setShowItemForm(true);
-
     }
 
     const deleteListItem = (item) => {
@@ -193,9 +188,9 @@ function ListItem(props) {
                     <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
                         <SearchList
                             id="listItemId"
-                            name="listItemName"
+                            name="listItemCode"
                             value={state.listItemId}
-                            searchTerm={state.listItemName}
+                            searchTerm={state.listItemCode}
                             code="get_all_list_items"
                             apiUrl="ddl/loadItems"
                             onChangeValue={(name, item) => handleSearchListChange(name, item)}

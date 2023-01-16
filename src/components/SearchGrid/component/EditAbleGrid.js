@@ -67,9 +67,18 @@ export default function EditAbleGrid({ code, apiurl, onEdit, onDelete, onPrint, 
                                 item.check = <><MDBInput type="checkbox" name={item[gridCnfg[props.columnCode][0].dataIndex]} onChange={handleCheckBox} color="primary" /></>
                             };
                             if (isLink && item.link) {
-                                if (item.linkPath && !item.linkPath.startsWith('.'))
-                                    item.linkPath = '.' + item.linkPath;
-                                item.link = <a target={"_blank"} href={item.linkPath}>{item.link.length > 5 ? item.link.substring(0, 8) + '...' : item.link}</a>
+                                debugger;
+                                var splitedLinks = item.link.split(',')
+                                var splitedLinkPaths = item.linkPath.split(',')
+                                item.link = splitedLinks.map((item, i) => {
+                                    if (splitedLinkPaths[i] && !splitedLinkPaths[i].startsWith('.')) {
+                                        splitedLinkPaths[i] = '.' + splitedLinkPaths[i];
+                                    }
+                                    return <a target={"_blank"} href={splitedLinkPaths[i]}>{item.length > 5 ? item.substring(0, 8) + '...' : item}</a>
+                                })
+                                //if (item.linkPath && !item.linkPath.startsWith('.'))
+                                //    item.linkPath = '.' + item.linkPath;
+                                //item.link = <a target={"_blank"} href={item.linkPath}>{item.link.length > 5 ? item.link.substring(0, 8) + '...' : item.link}</a>
                             }
 
                             item.feeAction = <>

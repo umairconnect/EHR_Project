@@ -274,7 +274,6 @@ function Appointments(props) {
     }
 
     useEffect(() => {
-        debugger;
         console.log(props.isEditable);
         console.log("patient screen appointment list");
         saveAuditLogInfo()

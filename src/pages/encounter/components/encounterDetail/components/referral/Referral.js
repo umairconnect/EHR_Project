@@ -21,6 +21,14 @@ function Referral(props) {
 
             if (result.success && result.data) {
                 setReferralRowsData(result.data.map((item, i) => {
+                    var splitedLinks = item.link.split(',')
+                    var splitedLinkPaths = item.linkPath.split(',')
+                    item.linkPath = splitedLinks.map((item, i) => {
+                        if (splitedLinkPaths[i] && !splitedLinkPaths[i].startsWith('.')) {
+                            splitedLinkPaths[i] = '.' + splitedLinkPaths[i];
+                        }
+                        return <a target={"_blank"} href={splitedLinkPaths[i]}>{item.length > 5 ? item.substring(0, 8) + '...' : item}</a>
+                    })
                     return {
                         listTitle: item.refProviderName + " | " + formatDate(item.createDate),
                         refferalId: item.refferalId,
@@ -64,8 +72,7 @@ function Referral(props) {
                                 <div className={classes.DistreeIcon}><ChevronRightIcon /></div>
                                 <div className={classes.DistreeLabel}> {item.listTitle}
                                     {item.linkPath ?
-                                        <> | <a target={"_blank"} href={item.linkPath}> {item.link.length > 20 ? item.link.substring(0, 17) + '...' : item.link} </a>
-                                        </> : ''
+                                        ' '+item.linkPath : ''
                                     }
                                     {item.documentPath ?
                                         <> | <a target={"_blank"} href={'./' + item.documentPath} download> Referral Document </a>

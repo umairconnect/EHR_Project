@@ -171,7 +171,6 @@ export default function Patients(props) {
         //setUpdateFlag(true);
     }
     useEffect(() => {
-        debugger;
         console.log(props);
         console.log("schedular screen appointment list");
     }, []);
